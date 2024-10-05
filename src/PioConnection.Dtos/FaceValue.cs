@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PioConnection.Api.Dtos;
+namespace PioConnection.Dtos;
 
 public enum FaceValue
 {

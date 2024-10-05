@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>  <!-- Enables XML file generation -->
+        <NoWarn>$(NoWarn);1591</NoWarn>  <!-- Optional: Suppresses missing XML comments warnings -->
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\C_sharp_2_0\PioConnection.ConnectionDetails.csproj" />
+      <ProjectReference Include="..\PioConnection.Dtos\PioConnection.Dtos.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,7 +36,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Helpers\" />
+      <Folder Include="Core\Commands\Abstractions\" />
     </ItemGroup>
 
 </Project>

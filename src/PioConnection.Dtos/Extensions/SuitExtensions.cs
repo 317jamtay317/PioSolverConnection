@@ -1,6 +1,4 @@
-﻿using PioConnection.Api.Dtos;
-
-namespace PioConnection.Api.Extensions;
+﻿namespace PioConnection.Dtos.Extensions;
 
 public static class SuitExtensions
 {

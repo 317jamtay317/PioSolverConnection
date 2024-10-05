@@ -1,6 +1,6 @@
-﻿using PioConnection.Api.Extensions;
+﻿using PioConnection.Dtos.Extensions;
 
-namespace PioConnection.Api.Dtos;
+namespace PioConnection.Dtos;
 
 /// <summary>
 /// A structure to represent a playing card

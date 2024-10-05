@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using PioConnection.Api.Dtos;
-using PioConnection.Api.Extensions;
+using PioConnection.Dtos;
+using PioConnection.Dtos.Extensions;
 
 namespace PioConnection.Api.Tests.Unit.Extensions;
 

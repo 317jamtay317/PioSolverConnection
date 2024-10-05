@@ -1,4 +1,4 @@
-﻿namespace PioConnection.Api.Dtos;
+﻿namespace PioConnection.Dtos;
 
 /// <summary>
 /// Describes the action that a player takes

@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
 using PioConnection.Api.Dtos;
-using PioConnection.Api.Extensions;
+using PioConnection.Api.Helpers;
+using PioConnection.Dtos;
+using PioConnection.Dtos.Extensions;
 
 namespace PioConnection.Api.Converters;
 
@@ -33,7 +34,7 @@ public class CardConverter : JsonConverter<Card>
         }
 
         // Assuming the format is "As" -> Ace of Spades
-        var splitValue = stringValue.ToCharArray().Select(x=>x.ToString());
+        var splitValue = stringValue.ToCharArray().Select(x=>x.ToString()).ToArray();
         if (!EnumHelper.TryParse(splitValue.First(), out FaceValue? faceValue))
         {
             throw new JsonSerializationException("Expected a string value for the FaceValue of the card.");

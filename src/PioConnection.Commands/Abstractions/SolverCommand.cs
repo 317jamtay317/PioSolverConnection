@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Client.Plugins;
 using Client.Util;
 
 namespace PioConnection.Commands.Abstractions;
@@ -6,31 +7,28 @@ namespace PioConnection.Commands.Abstractions;
 /// <summary>
 /// The base class that represents a basic command. 
 /// </summary>
-public abstract class SolverCommand(string stringCommand, SolverConnection connection) 
-    : ISolverCommand
+public abstract class SolverCommand : ISolverCommand
 {
+    /// <summary>
+    /// The base class that represents a basic command. 
+    /// </summary>
+    public SolverCommand(ISolverConnection connection)
+    {
+        SolverConnection = connection;
+    }
+
+    public SolverCommand(RangeMetadata metadata)
+    {
+        SolverConnection = new SolverConnection(metadata.SolverPath);;
+    }
+
     /// <inheritdoc cref="ISolverCommand.SolverConnection"/>
-    public ISolverConnection SolverConnection { get; } = connection;
+    public ISolverConnection SolverConnection { get; }
 
-    /// <inheritdoc cref="ISolverCommand.Arguments"/>
-    public IReadOnlyDictionary<string, object> Arguments => ArgumentsDictionary;
-
-    /// <inheritdoc cref="ISolverCommand.CommandName"/>
-    public string CommandName { get; } = stringCommand;
-
-    /// <inheritdoc cref="ISolverCommand.AddArgument"/>
-    public virtual void AddArgument(string key, string value)
+    /// <inheritdoc cref="ISolverCommand.Execute"/>
+    internal virtual string[] Execute(CommandRequest request, params object[] args)
     {
-        ArgumentsDictionary.TryAdd(key, value);
+        string?[] argsAsString = args.Select(x => x.ToString()).ToArray();
+        return SolverConnection.GetResponseFromSolver($"{request} {string.Join(' ', argsAsString)}");
     }
-
-    protected object[] GetArguments()
-    {
-        return Arguments
-            .Select(x => x.Value)
-            .Cast<object>()
-            .ToArray();
-    }
-
-    protected ConcurrentDictionary<string, object> ArgumentsDictionary = new();
 }

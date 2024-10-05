@@ -6,9 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\C_sharp_2_0\PioConnection.ConnectionDetails.csproj" />
-      <ProjectReference Include="..\PioConnection.Dtos\PioConnection.Dtos.csproj" />
-    </ItemGroup>
-
 </Project>

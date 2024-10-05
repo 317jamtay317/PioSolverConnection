@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using PioConnection.Api.Converters;
 using PioConnection.Api.Dtos;
+using PioConnection.Api.Helpers;
+using PioConnection.Dtos;
 
 namespace PioConnection.Api.Tests.Unit.Helpers;
 

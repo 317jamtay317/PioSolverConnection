@@ -1,4 +1,4 @@
-﻿namespace PioConnection.Api.Dtos;
+﻿namespace PioConnection.Dtos;
 
 /// <summary>
 /// An enum to describe what position the player is in

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PioConnection.Api.Dtos;
+namespace PioConnection.Dtos;
 
 /// <summary>
 /// Enum to represent the suits in the deck

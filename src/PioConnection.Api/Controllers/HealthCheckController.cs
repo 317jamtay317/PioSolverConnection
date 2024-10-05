@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PioConnection.Api.Dtos;
 
 namespace PioConnection.Api.Controllers;
 
@@ -11,8 +12,13 @@ public class HealthCheckController:ControllerBase
     /// </summary>
     [HttpGet]
     [Route("check")]
+    [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
     public IActionResult Check()
     {
-        return Ok();
+        return Ok(new ApiResponse<string>()
+        {
+            Data = "Success! We are working",
+            IsSuccess = true
+        });
     }
 }

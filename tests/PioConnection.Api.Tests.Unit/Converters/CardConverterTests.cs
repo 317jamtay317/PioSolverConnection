@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PioConnection.Api.Converters;
 using PioConnection.Api.Dtos;
+using PioConnection.Dtos;
 
 namespace PioConnection.Api.Tests.Unit.Converters;
 

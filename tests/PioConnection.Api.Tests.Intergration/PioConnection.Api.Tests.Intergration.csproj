@@ -11,7 +11,11 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Include="FluentAssertions" Version="6.12.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.8" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="NSubstitute" Version="5.1.0" />
         <PackageReference Include="xunit" Version="2.5.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
     </ItemGroup>
@@ -23,7 +27,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\src\C_sharp_2_0\PioConnection.ConnectionDetails.csproj" />
       <ProjectReference Include="..\..\src\PioConnection.Api\PioConnection.Api.csproj" />
-      <ProjectReference Include="..\..\src\PioConnection.Commands\PioConnection.Commands.csproj" />
     </ItemGroup>
 
 </Project>

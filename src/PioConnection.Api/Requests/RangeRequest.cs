@@ -1,9 +1,15 @@
-﻿using PioConnection.Api.Dtos;
+﻿using Newtonsoft.Json;
+using PioConnection.Api.Dtos;
+using PioConnection.Dtos;
 
 namespace PioConnection.Api.Requests;
 
 public abstract class RangeRequest
 {
+    /// <summary>
+    /// Gets a value to represent the place in the hand we are.
+    /// </summary>
+    [JsonIgnore]
     public abstract Street Street { get; }
     
     /// <summary>
@@ -15,9 +21,4 @@ public abstract class RangeRequest
     /// Gets or sets what position that you're requesting.
     /// </summary>
     public PlayPosition Position { get; set; }
-
-    /// <summary>
-    /// Gets or sets the list of actions that has happened to this point
-    /// </summary>
-    public IEnumerable<PlayerAction>? Actions { get; set; }
 }
