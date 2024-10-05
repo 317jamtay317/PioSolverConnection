@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Client.Util
 {
-
     public class SolverConnection : ISolverConnection
     {
         public event SolverUtils.SolverLogMessage LogEvent;
