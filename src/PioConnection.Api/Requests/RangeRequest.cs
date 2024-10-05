@@ -19,5 +19,5 @@ public abstract class RangeRequest
     /// <summary>
     /// Gets or sets the list of actions that has happened to this point
     /// </summary>
-    public IEnumerable<PlayerAction> Actions { get; set; }
+    public IEnumerable<PlayerAction>? Actions { get; set; }
 }

@@ -7,5 +7,5 @@ public class PlayerAction
 {
     public ActionType ActionType { get; set; }
 
-    public string Sizing { get; set; }
+    public string? Sizing { get; set; }
 }

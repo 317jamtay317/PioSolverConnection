@@ -19,6 +19,8 @@ ILogger logger = new LoggerConfiguration()
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(logger);
+
+// Add Swagger configuration
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -28,30 +30,31 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API for PioConnection application"
     });
 });
-var endpoints = builder.GetEndpoints();
-builder.Services.RegisterEndpointServices(endpoints);
- builder.Services
-     .AddControllers()
-     .AddNewtonsoftJson(options =>
-     {
-         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-     });
+
+// Register services
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    });
 builder.Services.AddScoped(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>));
 builder.Services.AddScoped<IRangeService, RangeService>();
+
 var app = builder.Build();
-app.MapGet("/api/helloword", () => "Hello World!")
-    .WithName("HelloWorld")
-    .WithTags("TestingApi")
-    .Produces<string>();
-app.RegisterEndpoints(endpoints);
-if (app.Environment.IsDevelopment()) // Ensure Swagger is enabled only in development
+
+// Map controllers
+app.MapControllers();
+
+// Configure Swagger
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "PioConnection API v1");
-        c.RoutePrefix = "swagger"; // Ensures Swagger is served at root (http://localhost:5193/)
+        c.RoutePrefix = "swagger"; // Ensures Swagger is served at /swagger
     });
-} ;
+}
 
 app.Run();

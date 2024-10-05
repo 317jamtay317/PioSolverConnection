@@ -34,16 +34,16 @@ public class CardConverter : JsonConverter<Card>
 
         // Assuming the format is "As" -> Ace of Spades
         var splitValue = stringValue.ToCharArray().Select(x=>x.ToString());
-        if (!EnumHelper.TryParse(splitValue.First(), out FaceValue faceValue))
+        if (!EnumHelper.TryParse(splitValue.First(), out FaceValue? faceValue))
         {
             throw new JsonSerializationException("Expected a string value for the FaceValue of the card.");
         }
 
-        if (!EnumHelper.TryParse(splitValue.Last(), out Suit suit))
+        if (!EnumHelper.TryParse(splitValue.Last(), out Suit? suit))
         {
             throw new JsonSerializationException("Expected a string value for the Suit of the card.");
         }
 
-        return new Card(suit, faceValue);
+        return new Card(suit!.Value, faceValue!.Value);
     }
 }

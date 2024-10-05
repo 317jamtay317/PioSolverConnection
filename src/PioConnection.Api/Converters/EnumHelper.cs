@@ -7,7 +7,7 @@ public class EnumHelper
     /// <summary>
     /// Converts the Discription of an enum into the Enum value
     /// </summary>
-    public static T Parse<T>(string value) where T:Enum
+    public static T? Parse<T>(string value) where T:Enum
     {
         // Try to match with the standard enum names (Enum.Parse)
         if (Enum.TryParse(typeof(T), value, true, out var result))
@@ -22,7 +22,7 @@ public class EnumHelper
             {
                 if (attribute.Description == value)
                 {
-                    return (T)field.GetValue(null);
+                    return (T?)field.GetValue(null);
                 }
             }
         }
@@ -34,7 +34,7 @@ public class EnumHelper
     /// Tries to convert the discription into the value of type T,
     /// if it can convert it returns true, otherwise; false
     /// </summary>
-    public static bool TryParse<T>(string value, out T result) where T : struct, Enum
+    public static bool TryParse<T>(string value, out T? result) where T : struct, Enum
     {
         try
         {
@@ -43,7 +43,7 @@ public class EnumHelper
         }
         catch (Exception)
         {
-            result = default;
+            result = null;
             return false;
         }
     }

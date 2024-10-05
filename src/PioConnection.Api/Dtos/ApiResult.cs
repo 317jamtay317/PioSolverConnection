@@ -2,7 +2,7 @@
 
 public class ApiResult<T>
 {
-    public T Data { get; set; }
+    public T? Data { get; set; }
 
     public bool IsSuccess { get; set; }
 
@@ -11,5 +11,5 @@ public class ApiResult<T>
 
 public class ErrorInfo
 {
-    public string Message { get; set; }
+    public string? Message { get; set; }
 }
