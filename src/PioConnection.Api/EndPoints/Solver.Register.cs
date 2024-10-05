@@ -8,9 +8,9 @@ public partial class Solver : IEndpoint
     private const string Tag = "solver";
     public async Task RegisterEndpoints(WebApplication app)
     {
-        app.MapPost($"{Route}/get-flop-range", GetRange)
+        app.MapPost($"{Route}/get-flop-range", GetFlopRange)
             .Produces<ApiResult<string>>()
-            .WithName(nameof(GetRange))
+            .WithName(nameof(GetFlopRange))
             .WithTags(Tag);
     }
 

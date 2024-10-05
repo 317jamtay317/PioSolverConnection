@@ -11,4 +11,5 @@ public class ApiResult<T>
 
 public class ErrorInfo
 {
+    public string Message { get; set; }
 }

@@ -2,8 +2,10 @@
 
 namespace PioConnection.Api.Requests;
 
-public class FlopRequest
+public abstract class RangeRequest
 {
+    public abstract Street Street { get; }
+    
     /// <summary>
     /// Gets or sets the path of the cfr file
     /// </summary>
