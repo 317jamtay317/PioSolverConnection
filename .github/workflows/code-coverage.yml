@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Step 2: Set up .NET SDK
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: dotnet restore
+
+      # Step 4: Build the project
+      - name: Build
+        run: dotnet build --no-restore
+
+      # Step 5: Run tests with coverage for each project
+      - name: Run tests with coverage (Integration Tests)
+        run: dotnet test ./tests/PioConnection.Api.Tests.Integration --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
+
+      - name: Run tests with coverage (Unit Tests)
+        run: dotnet test ./tests/PioConnection.Api.Tests.Unit --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
+
+      - name: Run tests with coverage (Functional Tests)
+        run: dotnet test ./tests/PioConnection.Api.Tests.Functional --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/functional
+
+      # Step 6: Install ReportGenerator tool for report aggregation
+      - name: Install ReportGenerator
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      # Step 7: Merge and generate the final coverage report
+      - name: Merge coverage reports and generate report
+        run: |
+          reportgenerator "-reports:testresults/integration/*/coverage.cobertura.xml" \
+                          "-reports:testresults/unit/*/coverage.cobertura.xml" \
+                          "-reports:testresults/functional/*/coverage.cobertura.xml" \
+                          "-targetdir:coverage" -reporttypes:Html
+
+      # Step 8: Upload combined coverage to Codecov
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Ensure you set this in your repository secrets
+          files: coverage/coverage.cobertura.xml
+          flags: unittests
+          name: total-code-coverage
+          fail_ci_if_error: true
+
+      # Step 9: Add or update the badge in README
+      - name: Update coverage badge in README
+        run: |
+          sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/OWNER/REPO/branch/main/graph/badge.svg)|g' README.md
+      # Replace 'OWNER/REPO' with your GitHub repository details
+
+      # Step 10: Commit updated README with the badge
+      - name: Commit updated README
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update coverage badge"
+          git push
