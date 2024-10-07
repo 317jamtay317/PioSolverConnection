@@ -55,6 +55,10 @@ jobs:
       # Step 5: Update the README with coverage badge
       - name: Update README with Coverage Badge
         run: |
+          # Ensure coverage/ directory is ignored
+          echo "coverage/" >> .gitignore
+          git add .gitignore
+          # Update README with Codecov badge
           sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/317jamtay317/PioSolverConnection/branch/master/graph/badge.svg)|g' README.md
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
