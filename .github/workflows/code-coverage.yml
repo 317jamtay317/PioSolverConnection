@@ -1,12 +1,12 @@
-name: CI
+name: Update Code Coverage
 
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -16,59 +16,61 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Step 2: Set up .NET SDK
+      # Step 2: Set up .NET SDK for .NET 8
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x'
+          dotnet-version: '8.0.x'  # Set to .NET 8
 
       # Step 3: Install dependencies
       - name: Install dependencies
         run: dotnet restore
 
-      # Step 4: Build the project
-      - name: Build
-        run: dotnet build --no-restore
+      - name: Run tests without coverage (Integration Tests)
+        run: dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --no-build
 
-      # Step 5: Run tests with coverage for each project
-      - name: Run tests with coverage (Integration Tests)
-        run: dotnet test ./tests/PioConnection.Api.Tests.Integration --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
-
+      # Step 5: Run tests with coverage (Unit Tests)
       - name: Run tests with coverage (Unit Tests)
-        run: dotnet test ./tests/PioConnection.Api.Tests.Unit --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
+        run: dotnet test tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
 
-      - name: Run tests with coverage (Functional Tests)
-        run: dotnet test ./tests/PioConnection.Api.Tests.Functional --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/functional
+      # Step 6: Verify if coverage files are generated
+      - name: List testresults directory contents for integration tests
+        run: ls -R testresults/integration
 
-      # Step 6: Install ReportGenerator tool for report aggregation
+      - name: List testresults directory contents for unit tests
+        run: ls -R testresults/unit
+
+      # Step 7: Install ReportGenerator tool for report aggregation
       - name: Install ReportGenerator
         run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
-      # Step 7: Merge and generate the final coverage report
-      - name: Merge coverage reports and generate report
+      # Step 8: Merge and generate the final coverage report
+      - name: Merge and generate the final coverage report
         run: |
-          reportgenerator "-reports:testresults/integration/*/coverage.cobertura.xml" \
-                          "-reports:testresults/unit/*/coverage.cobertura.xml" \
-                          "-reports:testresults/functional/*/coverage.cobertura.xml" \
-                          "-targetdir:coverage" -reporttypes:Html
+          reportgenerator "-reports:testresults/integration/coverage.cobertura.xml;testresults/unit/coverage.cobertura.xml" \
+                          "-targetdir:coverage" -reporttypes:Html;Cobertura
 
-      # Step 8: Upload combined coverage to Codecov
+      # Step 9: List the contents of the coverage directory
+      - name: List coverage directory contents
+        run: ls -R coverage
+
+      # Step 10: Upload combined coverage to Codecov
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # Ensure you set this in your repository secrets
-          files: coverage/coverage.cobertura.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/cobertura.xml
           flags: unittests
           name: total-code-coverage
           fail_ci_if_error: true
 
-      # Step 9: Add or update the badge in README
+      # Step 11: Add or update the badge in README
       - name: Update coverage badge in README
         run: |
-          sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/OWNER/REPO/branch/main/graph/badge.svg)|g' README.md
-      # Replace 'OWNER/REPO' with your GitHub repository details
+          sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/317jamtay317/YOUR_REPO_NAME/branch/master/graph/badge.svg)|g' README.md
+      # Replace 'YOUR_REPO_NAME' with your actual repository name
 
-      # Step 10: Commit updated README with the badge
+      # Step 12: Commit updated README with the badge
       - name: Commit updated README
         run: |
           git config --local user.email "action@github.com"
