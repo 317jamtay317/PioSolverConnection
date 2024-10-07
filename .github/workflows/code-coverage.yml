@@ -32,7 +32,7 @@ jobs:
 
       # Step 5: Run tests with coverage for each project
       - name: Run tests with coverage (Integration Tests)
-        run: dotnet test ../../tests/PioConnection.Api.Tests.Integration/PioConnection.Api.Tests.Integration.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
+        run: dotnet test ../../tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
 
       - name: Run tests with coverage (Unit Tests)
         run: dotnet test ../../tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
