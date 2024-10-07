@@ -1,4 +1,5 @@
 ﻿using PioConnection.Dtos.Extensions;
+using PioConnection.Dtos.Helpers;
 
 namespace PioConnection.Dtos;
 
@@ -215,6 +216,13 @@ public struct Card : IEquatable<Card>
     /// Returns the 2d card
     /// </summary>
     public static Card TwoDiamonds() => new Card(Suit.Diamonds, FaceValue.Two);
+    public static implicit operator Card(string card)
+    {
+        var splitCard = card.ToCharArray().Select(x => x.ToString()).ToArray();
+        var faceValue = EnumHelper.Parse<FaceValue>(splitCard.First());
+        var suit = EnumHelper.Parse<Suit>(splitCard.Last());
+        return new Card(suit, faceValue);
+    }
     public Card(Suit suit, FaceValue faceValue)
     {
         Suit = suit;

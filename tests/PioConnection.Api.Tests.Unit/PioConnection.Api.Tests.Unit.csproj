@@ -27,4 +27,8 @@
       <ProjectReference Include="..\..\src\PioConnection.Api\PioConnection.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Core\Builders\" />
+    </ItemGroup>
+
 </Project>

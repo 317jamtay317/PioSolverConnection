@@ -36,9 +36,9 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .Returns(returnRange);
         var request = new FlopRangeRequest()
         {
-            Position = PlayerPosition.OOP,
-            FilePath = @"C:\PioSolver\saves\AcAdAs.cfr",
-            FlopActions = null
+            Position = PlayerPosition.BB,
+            FlopActions = null,
+            Flop = ["As", "Ac","Ah"]
         };
         var stringContent = new StringContent(
             JsonConvert.SerializeObject(request),
@@ -77,8 +77,7 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .Returns(returnRange);
         var request = new TurnRangeRequest()
         {
-            Position = PlayerPosition.OOP,
-            FilePath = @"C:\PioSolver\saves\AcAdAs.cfr",
+            Position = PlayerPosition.BB,
             FlopActions = [new (){ActionType = ActionType.Check},new (){ActionType = ActionType.Check}],
             TurnCard = Card.SixSpades()
         };

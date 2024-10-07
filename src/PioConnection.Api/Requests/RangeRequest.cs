@@ -12,16 +12,17 @@ public abstract class RangeRequest
     public GameType GameType { get; set; }
     
     /// <summary>
+    /// Gets the file path to be openend
+    /// </summary>
+    [JsonIgnore]
+    public abstract string FilePath { get; } 
+    
+    /// <summary>
     /// Gets a value to represent the place in the hand we are.
     /// </summary>
     [JsonIgnore]
     public abstract Street Street { get; }
     
-    /// <summary>
-    /// Gets or sets the path of the cfr file
-    /// </summary>
-    public string? FilePath { get; set; }
-
     /// <summary>
     /// Gets or sets what position that you're requesting.
     /// </summary>

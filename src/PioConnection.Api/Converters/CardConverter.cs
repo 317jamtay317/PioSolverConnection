@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PioConnection.Api.Dtos;
-using PioConnection.Api.Helpers;
 using PioConnection.Dtos;
 using PioConnection.Dtos.Extensions;
+using PioConnection.Dtos.Helpers;
 
 namespace PioConnection.Api.Converters;
 

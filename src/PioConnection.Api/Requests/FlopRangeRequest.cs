@@ -1,10 +1,27 @@
 ﻿using System.Text;
+using Newtonsoft.Json;
+using PioConnection.Api.Core.Builders;
 using PioConnection.Dtos;
 
 namespace PioConnection.Api.Requests;
 
 public class FlopRangeRequest : RangeRequest
 {
+    public override string FilePath
+    {
+        get
+        {
+            var filePathBuilder = new FilePathBuilder()
+                .IsTournament()
+                .PotType(PotType.SRP)
+                .WithPositions(PlayerPosition.UTG, PlayerPosition.BTN)
+                .WithStackDepth(10)
+                .WithFlop(Flop.FistCard, Flop.SecondCard, Flop.ThirdCard)
+                .ToString();
+            return filePathBuilder;//TODO: figure out configuration and builder information
+        }
+    }
+
     /// <inheritdoc cref="RangeRequest.Street"/>
     public override Street Street => Street.Flop;
 
@@ -14,6 +31,11 @@ public class FlopRangeRequest : RangeRequest
     /// the OOP player and no actions have happened. 
     /// </summary>
     public IEnumerable<PlayerAction>? FlopActions { get; set; } = [];
+    
+    /// <summary>
+    /// Gets or sets the flop cards 
+    /// </summary>
+    public Flop Flop { get; set; }
 
     /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
     public override string BuildNodeString()

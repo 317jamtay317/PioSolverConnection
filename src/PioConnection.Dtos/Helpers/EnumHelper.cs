@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PioConnection.Api.Helpers;
+namespace PioConnection.Dtos.Helpers;
 
 public class EnumHelper
 {
