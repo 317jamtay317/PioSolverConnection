@@ -319,3 +319,4 @@ dmypy.json
 
 
 launchSettings.json
+coverage/
