@@ -22,28 +22,24 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      # Step 3: Install dependencies
+      # Step 3: List test project directory contents to verify path
+      - name: List test project directory contents
+        run: ls -R tests
+
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: dotnet restore
 
-      # Step 4: Build the project
+      # Step 5: Build the project
       - name: Build
         run: dotnet build --no-restore
 
-      - name: List test project directory contents
-        run: ls -R ../../tests
-
-      # Step 5: Run tests with coverage for each project
+      # Step 6: Run tests with coverage (Integration Tests)
       - name: Run tests with coverage (Integration Tests)
-        run: dotnet test ../../tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
+        run: dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
 
       - name: Run tests with coverage (Unit Tests)
-        run: dotnet test ../../tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
-
-      # Step 6: (Optional) Run tests with coverage (Functional Tests) 
-      # Uncomment if you have functional tests
-      #- name: Run tests with coverage (Functional Tests)
-      #  run: dotnet test ../../tests/PioConnection.Api.Tests.Functional/PioConnection.Api.Tests.Functional.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/functional
+        run: dotnet test tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
 
       # Step 7: Install ReportGenerator tool for report aggregation
       - name: Install ReportGenerator
@@ -54,9 +50,8 @@ jobs:
         run: |
           reportgenerator "-reports:testresults/integration/*/coverage.cobertura.xml" \
                           "-reports:testresults/unit/*/coverage.cobertura.xml" \
-                          #"-reports:testresults/functional/*/coverage.cobertura.xml" \  # Uncomment if functional tests exist
                           "-targetdir:coverage" -reporttypes:Html,Cobertura
-          
+
       # Step 9: Check the coverage directory for the generated report
       - name: List coverage directory contents
         run: ls -R coverage
