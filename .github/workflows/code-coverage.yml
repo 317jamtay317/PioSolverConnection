@@ -51,6 +51,9 @@ jobs:
                           "-reports:testresults/unit/*/coverage.cobertura.xml" \
                           "-reports:testresults/functional/*/coverage.cobertura.xml" \
                           "-targetdir:coverage" -reporttypes:Html
+      # Step 7.1: Check the coverage directory for the generated report
+      - name: List coverage directory contents
+        run: ls -R coverage
 
       # Step 8: Upload combined coverage to Codecov
       - name: Upload to Codecov
