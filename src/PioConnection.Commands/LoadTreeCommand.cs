@@ -6,13 +6,13 @@ namespace PioConnection.Commands;
 
 public class LoadTreeCommand : SolverCommand
 {
-    private readonly RangeMetadata _metadata;
+    private readonly SolverMetadata _metadata;
 
     public LoadTreeCommand(ISolverConnection connection) : base(connection)
     {
     }
 
-    public LoadTreeCommand(RangeMetadata metadata) : base(metadata)
+    public LoadTreeCommand(SolverMetadata metadata) : base(metadata)
     {
         _metadata = metadata;
     }

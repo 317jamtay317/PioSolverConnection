@@ -10,5 +10,8 @@
       <ProjectReference Include="..\C_sharp_2_0\PioConnection.ConnectionDetails.csproj" />
       <ProjectReference Include="..\PioConnection.Dtos\PioConnection.Dtos.csproj" />
     </ItemGroup>
-
+    <ItemGroup>
+        <InternalsVisibleTo Include="PioConnection.Api.Tests.Intergration" />
+        <InternalsVisibleTo Include="PioConnection.Api.Tests.Unit" />
+    </ItemGroup>
 </Project>

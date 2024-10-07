@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using PioConnection.Api.Core;
 using PioConnection.Api.Core.Swagger;
 using PioConnection.Api.Dtos;
 using PioConnection.Api.Logging;
@@ -79,14 +80,14 @@ builder.Services
     });
 builder.Services.AddScoped(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>));
 builder.Services.AddScoped<IRangeService, RangeService>();
-
+builder.Services.AddSingleton<ISolverConnectionFactory, SolverConnectionFactory>();
 var app = builder.Build();
 
 // Map controllers
 app.MapControllers();
 
 // Configure Swagger
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("enable-swagger"))
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>

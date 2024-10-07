@@ -401,5 +401,11 @@ namespace Client.Util
             }
         }
         #endregion
+
+        public void Dispose()
+        {
+            Disconnect();
+            _solverProcess.Dispose();
+        }
     }
 }

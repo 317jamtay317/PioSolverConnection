@@ -5,10 +5,10 @@ using Client.Util;
 using PioConnection.Commands;
 using PioConnection.Commands.Abstractions;
 
-var rangeMetadata = new RangeMetadata(
+var solverMetadata = new SolverMetadata(
     @"C:\PioSOLVER\PioSOLVER2-pro.exe",
     @$"""F:\Sims\Chip Ev\40 BB\SRP\CO vs BB\As2s2h.cfr""");
-var loadTreeCommand = new LoadTreeCommand(rangeMetadata);
+var loadTreeCommand = new LoadTreeCommand(solverMetadata);
 loadTreeCommand.Execute();
 var rangeCommand = new RangeCommand(loadTreeCommand.SolverConnection);
 var result = rangeCommand.Execute();

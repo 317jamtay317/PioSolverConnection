@@ -18,4 +18,8 @@ public class TurnRangeRequest : FlopRangeRequest
     /// Gets or sets the second community card shown
     /// </summary>
     public Card? TurnCard { get; set; }
+
+    /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
+    public override string BuildNodeString() =>
+        throw new NotImplementedException();
 }

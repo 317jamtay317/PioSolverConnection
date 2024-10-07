@@ -15,7 +15,7 @@ public class RangesPrinter
     private SolverConnection _solver { get; set; }
 
 
-    public RangesPrinter(RangeMetadata metadata)
+    public RangesPrinter(SolverMetadata metadata)
     {
         TreePath = metadata.TreePath;
         _solver = new SolverConnection(metadata.SolverPath);
@@ -38,4 +38,4 @@ public record BothRanges(string OOPRange, string IPRange);
 /// </summary>
 /// <param name="SolverPath"></param>
 /// <param name="TreePath">The full path of the *.cfr file</param>
-public record RangeMetadata(string SolverPath, string TreePath);
+public record SolverMetadata(string SolverPath, string TreePath);

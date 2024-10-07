@@ -21,4 +21,8 @@ public class RiverRangeRequest : TurnRangeRequest
     /// A card to represent the last card to be shown in the hand
     /// </summary>
     public Card? RiverCard { get; set; }
+
+    /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
+    public override string BuildNodeString() =>
+        throw new NotImplementedException();
 }

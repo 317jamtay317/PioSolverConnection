@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\C_sharp_2_0\PioConnection.ConnectionDetails.csproj" />
+      <ProjectReference Include="..\PioConnection.Commands\PioConnection.Commands.csproj" />
       <ProjectReference Include="..\PioConnection.Dtos\PioConnection.Dtos.csproj" />
     </ItemGroup>
 

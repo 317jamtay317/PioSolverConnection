@@ -1,26 +1,48 @@
-﻿using Client.Util;
+﻿using Client.Plugins;
+using Client.Util;
+using PioConnection.Api.Core;
 using PioConnection.Api.Logging;
 using PioConnection.Api.Requests;
+using PioConnection.Commands;
+using PioConnection.Dtos;
 
 namespace PioConnection.Api.Services;
 
 public class RangeService(
-    ILoggerWrapper<RangeService> logger,
-    ISolverConnection connection) : IRangeService
+    ISolverConnectionFactory connectionFactory,
+    IConfiguration configuration) : IRangeService
 {
-    public string GetRange(RangeRequest request)
+    public string[] GetRange(RangeRequest request)
     {
-        throw new NotImplementedException();
-        // switch (request.GetType())
-        // {
-        //     case typeof(FlopRangeRequest):
-        //         return string.Empty;
-        //     case typeof(TurnRangeRequest):
-        //         return string.Empty;
-        //     case typeof(RiverRangeRequest):
-        //         return string.Empty;
-        //     default:
-        //         throw new NotSupportedException("We do not support anything other than Flop,Turn,and River range requests");
-        // }
+        var solverPath = configuration.GetValue<string>("piosolver-path");
+        if (string.IsNullOrWhiteSpace(solverPath))
+        {
+            throw new ArgumentNullException(nameof(solverPath), "Path is required to start the solver, please ensure that a setting called 'piosolver-path' is in appsettings");
+        }
+
+        var metadata = new SolverMetadata(solverPath, request.FilePath);
+        using var connection = connectionFactory.Create(metadata);
+        LoadTreeCommand loadTreeCommand = new(connection);
+        loadTreeCommand.Execute(request.FilePath);
+        RangeCommand rangeCommand = new(connection)
+        {
+            NodeString = request.BuildNodeString()
+        };
+        if (request is FlopRangeRequest flopRangeRequest)
+        {
+            rangeCommand.Actions.Add(Street.Flop, flopRangeRequest.FlopActions);
+        }
+
+        if (request is TurnRangeRequest turnRangeRequest)
+        {
+            rangeCommand.Actions.Add(Street.Turn, turnRangeRequest.TurnActions);
+        }
+
+        if (request is RiverRangeRequest riverRangeRequest)
+        {
+            rangeCommand.Actions.Add(Street.River, riverRangeRequest.RiverActions);
+        }
+
+        return rangeCommand.Execute().Cast<string>().ToArray();
     }
 }

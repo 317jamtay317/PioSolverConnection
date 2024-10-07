@@ -17,7 +17,7 @@ public abstract class SolverCommand : ISolverCommand
         SolverConnection = connection;
     }
 
-    public SolverCommand(RangeMetadata metadata)
+    public SolverCommand(SolverMetadata metadata)
     {
         SolverConnection = new SolverConnection(metadata.SolverPath);;
     }

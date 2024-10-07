@@ -7,5 +7,5 @@ public interface IRangeService
     /// <summary>
     /// Gets the range from the solver
     /// </summary>
-    string GetRange(RangeRequest request);
+    string[] GetRange(RangeRequest request);
 }

@@ -20,5 +20,10 @@ public enum ActionType
     /// <summary>
     /// Reperesents a player raising
     /// </summary>
-    Raise
+    Raise = 3,
+    
+    /// <summary>
+    /// Repersents a player calling a bet or raise
+    /// </summary>
+    Call = 4
 }

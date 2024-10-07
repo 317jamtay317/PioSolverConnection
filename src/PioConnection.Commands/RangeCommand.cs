@@ -11,13 +11,17 @@ public class RangeCommand : SolverCommand
     {
     }
 
-    public RangeCommand(RangeMetadata metadata) : base(metadata)
+    public RangeCommand(SolverMetadata metadata) : base(metadata)
     {
     }
 
-    public ICollection<PlayerAction> Actions { get; } = new List<PlayerAction>();
+    public Dictionary<Street, IEnumerable<PlayerAction>> Actions { get; } = new();
+    
+    public string NodeString { get; init; }
     public object[] Execute()
     {
+        if (NodeString is null)
+            throw new ArgumentNullException(nameof(NodeString), "NodeString is required to run a command");
         return base.Execute(CommandRequest.ShowHumanReadableStratigy(), "r:0");
     }
 }

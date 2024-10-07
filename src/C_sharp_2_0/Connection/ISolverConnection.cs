@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Client.Util
 {
-    public interface ISolverConnection
+    public interface ISolverConnection :IDisposable
     {
         /// <summary>
         /// Sends request to Solver and gets response (both single and multiline) in the form of array.
