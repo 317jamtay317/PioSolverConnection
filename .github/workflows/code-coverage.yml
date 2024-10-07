@@ -65,7 +65,7 @@ jobs:
       # Step 9: Add or update the badge in README
       - name: Update coverage badge in README
         run: |
-          sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/OWNER/REPO/branch/main/graph/badge.svg)|g' README.md
+          sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/317jamtay317/REPO/branch/main/graph/badge.svg)|g' README.md
       # Replace 'OWNER/REPO' with your GitHub repository details
 
       # Step 10: Commit updated README with the badge
