@@ -48,8 +48,8 @@ jobs:
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Add this token in your repo secrets
-          files: ./testresults/**/coverage.cobertura.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/Cobertura.xml
           fail_ci_if_error: true
 
       # Step 5: Update the README with coverage badge
