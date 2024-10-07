@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
+      - name: List test project directory contents
+        run: ls -R ../../tests
+
       # Step 5: Run tests with coverage for each project
       - name: Run tests with coverage (Integration Tests)
         run: dotnet test ../../tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
