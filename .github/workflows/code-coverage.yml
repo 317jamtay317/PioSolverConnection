@@ -1,5 +1,6 @@
 name: Code Coverage
 
+
 on:
   push:
     branches:
@@ -13,12 +14,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Set up Docker
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: Run Tests in Docker
+      # Step 3: Run Tests with Code Coverage in Docker
+      - name: Run Tests and Generate Code Coverage
         run: |
-          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj
+          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults
+
+      # Step 4: Upload coverage results to Codecov
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}  # Add this token in your repo secrets
+          files: ./testresults/**/coverage.cobertura.xml
+          fail_ci_if_error: true
+
+      # Step 5: Update the README with coverage badge
+      - name: Update README with Coverage Badge
+        run: |
+          sed -i 's|!\[Coverage\](.*)|![Coverage](https://codecov.io/gh/317jamtay317/PioSolverConnection/branch/master/graph/badge.svg)|g' README.md
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update coverage badge"
+          git push
