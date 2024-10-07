@@ -32,10 +32,10 @@ jobs:
 
       # Step 5: Run tests with coverage for each project
       - name: Run tests with coverage (Integration Tests)
-        run: dotnet test /tests/PioConnection.Api.Tests.Integration --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
+        run: dotnet test ./tests/PioConnection.Api.Tests.Integration/PioConnection.Api.Tests.Integration.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/integration
 
       - name: Run tests with coverage (Unit Tests)
-        run: dotnet test /tests/PioConnection.Api.Tests.Unit --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
+        run: dotnet test /tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --no-build --collect:"XPlat Code Coverage" --results-directory ./testresults/unit
 
       # Step 6: Install ReportGenerator tool for report aggregation
       - name: Install ReportGenerator
