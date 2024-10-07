@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
-      - name: Run tests with coverage (Integration Tests)
-        run: dotnet vstest tests/PioConnection.Api.Tests.Intergration/bin/Debug/net8.0/PioConnection.Api.Tests.Intergration.dll --collect:"XPlat Code Coverage"
+      - name: Run tests without coverage (Integration Tests)
+        run: dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --no-build
 
       # Step 5: Run tests with coverage (Unit Tests)
       - name: Run tests with coverage (Unit Tests)
