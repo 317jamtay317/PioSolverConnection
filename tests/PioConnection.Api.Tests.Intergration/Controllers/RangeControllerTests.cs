@@ -97,5 +97,30 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
         apiResponse.Data.Should().BeEquivalentTo(returnRange);
         apiResponse.Errors.Should().BeNull();
     }
+
+    [Fact]
+    public void GetRiverRange_ShouldReturnCorrectRange_WhenCalled()
+    {
+        //arrange
+
+        string[] returnRange =
+        [
+            "AsAd 1.000 0.000 0.000 0.000",
+            "AcAd 1.000 0.000 0.000 0.000",
+            "AhAd 1.000 0.000 0.000 0.000",
+            "AsAd 1.000 0.000 0.000 0.000",
+            "AsAh 1.000 0.000 0.000 0.000",
+            "AcAh 1.000 0.000 0.000 0.000",
+        ];
+        factory
+            .SolverConnectionFactory
+            .Create(Arg.Any<SolverMetadata>())
+            .Returns(factory.SolverConnection);
+        factory.SolverConnection.GetResponseFromSolver($"{SolverCommands.ShowHumanReadableStratigy} r:0:c:c:6s:b50:c:2d")
+            .Returns(returnRange);
+        //act
+        
+        //assert
+    }
     private readonly HttpClient _client = factory.CreateClient();
 }

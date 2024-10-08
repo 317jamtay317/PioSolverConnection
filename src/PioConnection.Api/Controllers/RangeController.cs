@@ -13,14 +13,13 @@ public class RangeController(
     IRangeService rangeService, 
     ILoggerWrapper<RangeController> logger) : ControllerBase
 {
-    
     /// <summary>
     /// Gets the flop range from the solver.
     /// </summary>
     /// <param name="request">the request that helps build the tree</param>
     [HttpPost]
-    [Route("get-flop")]
-    [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
+    [Route("flop")]
+    [ProducesResponseType(typeof(ApiResponse<string[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
     public IActionResult GetFlopRange([FromBody] FlopRangeRequest request)
     {
@@ -33,8 +32,8 @@ public class RangeController(
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    [Route("get-turn")]
-    [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
+    [Route("turn")]
+    [ProducesResponseType(typeof(ApiResponse<string[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
     public IActionResult GetTurnRange([FromBody] TurnRangeRequest request)
     {
@@ -47,8 +46,8 @@ public class RangeController(
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    [Route("get-river")]
-    [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status200OK)]
+    [Route("river")]
+    [ProducesResponseType(typeof(ApiResponse<string[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
     public IActionResult GetRiverRange([FromBody] RiverRangeRequest request)
     {

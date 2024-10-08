@@ -54,7 +54,9 @@ public class FlopRangeRequest : RangeRequest
     public IEnumerable<PlayerAction> IpFlopPlayerActions { get; set; } = [];
     
     /// <summary>
-    /// Gets or sets the flop cards 
+    /// Gets or sets the flop cards.
+    /// you can use a string array of card representation for this.
+    /// example: ["As","Ac","Ad"] would be the flop AsAcAd  
     /// </summary>
     public Flop Flop { get; set; }
 
