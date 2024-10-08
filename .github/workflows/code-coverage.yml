@@ -42,7 +42,9 @@ jobs:
       # Step 6: Convert the coverage report to Cobertura format
       - name: Convert Coverage Report to Cobertura Format
         run: |
-          reportgenerator "-reports:testresults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:Cobertura
+         reportgenerator "-reports:testresults/integration/**/coverage.cobertura.xml" \
+                         "-reports:testresults/dtos/**/coverage.cobertura.xml" \
+                         "-targetdir:coverage" -reporttypes:Cobertura
 
       # Step 7: Check coverage directory output
       - name: List coverage directory
