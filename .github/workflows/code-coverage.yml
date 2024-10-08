@@ -25,7 +25,8 @@ jobs:
       # Step 3: Run Tests with Code Coverage in Docker
       - name: Run Tests and Generate Code Coverage
         run: docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 \
-         bash -c "sudo dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --collect:\"XPlat Code Coverage\" --results-directory ./testresults/integration && sudo dotnet test tests/PioConnection.Dtos.Tests.Unit/PioConnection.Dtos.Tests.Unit.csproj --collect:\"XPlat Code Coverage\" --results-directory ./testresults/dtos"
+         /bin/sh -c "rm -rf src/PioConnection.Dtos/bin src/PioConnection.Dtos/obj && dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --collect:\"XPlat Code Coverage\" --results-directory ./testresults/integration && dotnet test tests/PioConnection.Dtos.Tests.Unit/PioConnection.Dtos.Tests.Unit.csproj --collect:\"XPlat Code Coverage\" --results-directory ./testresults/dtos"
+
 
 
 #debug start
