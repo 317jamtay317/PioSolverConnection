@@ -23,9 +23,13 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       # Step 3: Run Tests with Code Coverage in Docker
-      - name: Run Tests and Generate Code Coverage
+      - name: Run tests with Docker
         run: |
-          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults
+          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/integration && \
+          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Dtos.Tests.Unit/PioConnection.Dtos.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos
+
+
+
 #debug start
       # Step 4: Check test results directory output
       - name: List test results directory
@@ -38,7 +42,9 @@ jobs:
       # Step 6: Convert the coverage report to Cobertura format
       - name: Convert Coverage Report to Cobertura Format
         run: |
-          reportgenerator "-reports:testresults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:Cobertura
+         reportgenerator "-reports:testresults/integration/**/coverage.cobertura.xml" \
+                         "-reports:testresults/dtos/**/coverage.cobertura.xml" \
+                         "-targetdir:coverage" -reporttypes:Cobertura
 
       # Step 7: Check coverage directory output
       - name: List coverage directory
