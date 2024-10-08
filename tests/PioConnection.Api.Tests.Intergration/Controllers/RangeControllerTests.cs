@@ -46,7 +46,7 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             Encoding.UTF8,
             MediaTypes.ApplicationJson);
         //act
-        var response = await _client.PostAsync("/range/get-flop", stringContent);
+        var response = await _client.PostAsync("/range/flop", stringContent);
         var responseContent = await response.Content.ReadAsStringAsync();
         var apiResponse = JsonConvert.DeserializeObject<ApiResponse<string[]>>(responseContent);
         
@@ -89,7 +89,7 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             Encoding.UTF8,
             MediaTypes.ApplicationJson);
         //act
-        var apiResult = await _client.PostAsync("/range/get-turn", stringContent);
+        var apiResult = await _client.PostAsync("/range/turn", stringContent);
         //assert
         apiResult.IsSuccessStatusCode.Should().BeTrue();
         var content = await apiResult.Content.ReadAsStringAsync();
