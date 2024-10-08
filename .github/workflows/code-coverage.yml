@@ -26,7 +26,9 @@ jobs:
       - name: Run tests with Docker
         run: |
           docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Intergration/PioConnection.Api.Tests.Intergration.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/integration && \
-          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Dtos.Tests.Unit/PioConnection.Dtos.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos
+          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Dtos.Tests.Unit/PioConnection.Dtos.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos && \
+          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Commands.Tests.Unit/PioConnection.Commands.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos && \
+          docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos
 
 
 
