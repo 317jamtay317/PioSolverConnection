@@ -32,12 +32,13 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .SolverConnectionFactory
             .Create(Arg.Any<SolverMetadata>())
             .Returns(factory.SolverConnection);
-        factory.SolverConnection.GetResponseFromSolver($"{SolverCommands.ShowHumanReadableStratigy} r:0")
+        factory.SolverConnection.GetResponseFromSolver($"{SolverCommands.ShowHumanReadableStratigy} r:0:c:b25:b125")
             .Returns(returnRange);
         var request = new FlopRangeRequest()
         {
             Position = PlayerPosition.BB,
-            FlopActions = null,
+            OOPFlopPlayerActions = [new PlayerAction(){ActionType = ActionType.Check}, new PlayerAction(){ActionType = ActionType.Raise, Size = 125}],
+            IpFlopPlayerActions = [new PlayerAction(){ActionType = ActionType.Bet, Size = 25}],
             Flop = ["As", "Ac","Ah"]
         };
         var stringContent = new StringContent(
@@ -77,8 +78,10 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .Returns(returnRange);
         var request = new TurnRangeRequest()
         {
+            Flop = [Card.AceClubs(), Card.AceDiamonds(), Card.AceHearts()],
             Position = PlayerPosition.BB,
-            FlopActions = [new (){ActionType = ActionType.Check},new (){ActionType = ActionType.Check}],
+            OOPFlopPlayerActions = [PlayerAction.Check()],
+            IpFlopPlayerActions = [PlayerAction.Check()],
             TurnCard = Card.SixSpades()
         };
         var stringContent = new StringContent(

@@ -9,10 +9,14 @@ public class FlopRangeRequestTests
 {
     [Theory]
     [ClassData(typeof(BuildFlopNodeStringData))]
-    public void BuildNodString_ShouldBuildTheCorrectString_AccordingToTheActions(PlayerAction[] actions, string expectedString)
+    public void BuildNodString_ShouldBuildTheCorrectString_AccordingToTheActions(
+        PlayerAction[] oopPlayerActions,
+        PlayerAction[] ipPlayerActions, 
+        string expectedString)
     {
         //arrange
-        _sut.FlopActions = actions;
+        _sut.OOPFlopPlayerActions = oopPlayerActions;
+        _sut.IpFlopPlayerActions = ipPlayerActions;
         
         //act
         var result = _sut.BuildNodeString();
@@ -27,23 +31,15 @@ public class FlopRangeRequestTests
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return [new PlayerAction[] { }, "r:0"];
+            yield return [Array.Empty<PlayerAction>(),Array.Empty<PlayerAction>(), "r:0"];
             yield return
             [
                 new PlayerAction[]
                 {
                     new(){ActionType = ActionType.Bet, Size = 100} 
                 },
+                Array.Empty<PlayerAction>(),
                 "r:0:b100"
-            ];
-            yield return
-            [
-                new PlayerAction[]
-                {
-                    new(){ActionType = ActionType.Bet, Size = 100},
-                    new(){ActionType = ActionType.Call},
-                },
-                "r:0:b100:c"
             ];
         }
 

@@ -28,20 +28,6 @@ public class RangeService(
         {
             NodeString = request.BuildNodeString()
         };
-        if (request is FlopRangeRequest flopRangeRequest)
-        {
-            rangeCommand.Actions.Add(Street.Flop, flopRangeRequest.FlopActions);
-        }
-
-        if (request is TurnRangeRequest turnRangeRequest)
-        {
-            rangeCommand.Actions.Add(Street.Turn, turnRangeRequest.TurnActions);
-        }
-
-        if (request is RiverRangeRequest riverRangeRequest)
-        {
-            rangeCommand.Actions.Add(Street.River, riverRangeRequest.RiverActions);
-        }
 
         return rangeCommand.Execute().Cast<string>().ToArray();
     }

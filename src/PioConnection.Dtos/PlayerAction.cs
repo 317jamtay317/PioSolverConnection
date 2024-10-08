@@ -7,6 +7,10 @@ namespace PioConnection.Dtos;
 /// </summary>
 public class PlayerAction
 {
+    public static PlayerAction Check() => new PlayerAction() { ActionType = ActionType.Check };
+    public static PlayerAction Call() => new PlayerAction() { ActionType = ActionType.Call };
+    public static PlayerAction Bet(int size) => new PlayerAction() { ActionType = ActionType.Bet, Size = size};
+    public static PlayerAction Raise(int size) => new PlayerAction() { ActionType = ActionType.Raise, Size = size};
     /// <summary>
     /// The action that the played made
     /// </summary>

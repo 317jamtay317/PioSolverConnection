@@ -1,4 +1,5 @@
-﻿using PioConnection.Dtos;
+﻿using PioConnection.Commands.Builders;
+using PioConnection.Dtos;
 
 namespace PioConnection.Api.Requests;
 
@@ -7,19 +8,39 @@ public class TurnRangeRequest : FlopRangeRequest
     /// <inheritdoc cref="RangeRequest.Street"/>
     public override Street Street => Street.Turn;
 
-    /// <summary>
-    /// Gets or sets a list of <see cref="PioConnection.Dtos.Tests.Unit.PlayerAction"/> that allows us to know
-    /// the action for the turn up to this point, if this is null we would be on
-    /// the OOP player and no actions have happened. 
-    /// </summary>
-    public IEnumerable<PlayerAction>? TurnActions { get; set; }
+    public IEnumerable<PlayerAction> OOPPlayerTurnActions { get; set; } = [];
     
+    public IEnumerable<PlayerAction> IPPlayerTurnActions { get; set; } = [];
+
     /// <summary>
     /// Gets or sets the second community card shown
     /// </summary>
     public Card? TurnCard { get; set; }
 
     /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
-    public override string BuildNodeString() =>
-        throw new NotImplementedException();
+    public override string BuildNodeString()
+    {
+        var builder = new NodeStringBuilder();
+        foreach (PlayerAction oopPlayerAction in OOPFlopPlayerActions)
+        {
+            builder.WithOOPFlopAction(oopPlayerAction);
+        }
+
+        foreach (PlayerAction ipPlayerAction in IpFlopPlayerActions)
+        {
+            builder.WithIPFlopAction(ipPlayerAction);
+        }
+
+        builder.WithTurnCard(TurnCard.Value);
+        foreach (PlayerAction oopPlayerAction in OOPPlayerTurnActions)
+        {
+            builder.WithOOPTurnAction(oopPlayerAction);
+        }
+
+        foreach (PlayerAction ipPlayerAction in IPPlayerTurnActions)
+        {
+            builder.WithIPTurnAction(ipPlayerAction);
+        }
+        return builder.ToString();
+    }
 }

@@ -1,12 +1,14 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
 using PioConnection.Api.Core.Builders;
+using PioConnection.Commands.Builders;
 using PioConnection.Dtos;
 
 namespace PioConnection.Api.Requests;
 
 public class FlopRangeRequest : RangeRequest
 {
+    [JsonIgnore]
     public override string FilePath
     {
         get
@@ -26,11 +28,30 @@ public class FlopRangeRequest : RangeRequest
     public override Street Street => Street.Flop;
 
     /// <summary>
-    /// Gets or sets a list of <see cref="PioConnection.Dtos.Tests.Unit.PlayerAction"/> that allows us to know
-    /// the action for the flop up to this point, if this is null we would be on
-    /// the OOP player and no actions have happened. 
+    /// Gets or sets the OOP player actions for the flop. See Remarks...
     /// </summary>
-    public IEnumerable<PlayerAction>? FlopActions { get; set; } = [];
+    /// <remarks>
+    /// The order of actions must be in the order the player played them.
+    /// For example: if the hand is BTN vs BB the BB leads 25, the button raises,
+    /// and the bb 3 bets to 200. The <see cref="OOPFlopPlayerActions"/> would contain
+    /// 2 items
+    ///  - <see cref="PlayerAction"/> with <see cref="PlayerAction.ActionType"/> = Bet and <see cref="PlayerAction.Size"/> = 25
+    ///  - <see cref="PlayerAction"/> with <see cref="PlayerAction.ActionType"/> = Raise and <see cref="PlayerAction.Size"/> = 200
+    /// </remarks>
+    public IEnumerable<PlayerAction> OOPFlopPlayerActions { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the OOP player actions for the flop. See Remarks...
+    /// </summary>
+    /// <remarks>
+    /// The order of actions must be in the order the player played them.
+    /// For example: if the hand is BTN vs BB the BB leads 25, the button raises to 100,
+    /// and the bb 3 bets to 200, the BTN calls. The <see cref="IpFlopPlayerActions"/> would contain
+    /// 2 items
+    ///  - <see cref="PlayerAction"/> with <see cref="PlayerAction.ActionType"/> = Raise and <see cref="PlayerAction.Size"/> = 100
+    ///  - <see cref="PlayerAction"/> with <see cref="PlayerAction.ActionType"/> = Call and <see cref="PlayerAction.Size"/> = null
+    /// </remarks>
+    public IEnumerable<PlayerAction> IpFlopPlayerActions { get; set; } = [];
     
     /// <summary>
     /// Gets or sets the flop cards 
@@ -40,15 +61,18 @@ public class FlopRangeRequest : RangeRequest
     /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
     public override string BuildNodeString()
     {
-        if (FlopActions is null)
+        NodeStringBuilder builder = new NodeStringBuilder();
+
+        foreach (PlayerAction oopPlayerAction in OOPFlopPlayerActions)
         {
-            throw new ArgumentNullException(nameof(FlopActions), "FlopActions cannot be null");
+            builder.WithOOPFlopAction(oopPlayerAction);
         }
-        var stringBuilder = new StringBuilder("r:0");
-        foreach (var playerAction in FlopActions)
+
+        foreach (PlayerAction ipPlayerAction in IpFlopPlayerActions)
         {
-            stringBuilder.Append($":{playerAction}");
+            builder.WithIPFlopAction(ipPlayerAction);
         }
-        return stringBuilder.ToString();
+
+        return builder.ToString();
     }
 }
