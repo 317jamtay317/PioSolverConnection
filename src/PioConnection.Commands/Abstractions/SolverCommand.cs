@@ -28,7 +28,7 @@ public abstract class SolverCommand : ISolverCommand
     /// <inheritdoc cref="ISolverCommand.Execute"/>
     internal virtual string[] Execute(CommandRequest request, params object[] args)
     {
-        string?[] argsAsString = args.Select(x => x.ToString()).ToArray();
+        string?[] argsAsString = args.Where(x=>x is not null).Select(x => x.ToString()).ToArray();
         return SolverConnection.GetResponseFromSolver($"{request} {string.Join(' ', argsAsString)}");
     }
 }

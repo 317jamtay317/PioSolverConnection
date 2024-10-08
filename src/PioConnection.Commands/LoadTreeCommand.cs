@@ -19,9 +19,9 @@ public class LoadTreeCommand : SolverCommand
 
     public object[] Execute()
     {
-        if (_metadata is null)
+        if (_metadata is null && SolverConnection is null)
             throw new ArgumentNullException(nameof(_metadata));
-        return base.Execute(CommandRequest.LoadTree(), _metadata.TreePath);
+        return base.Execute(CommandRequest.LoadTree(), _metadata?.TreePath);
     }
 
     public object[] Execute(string treePath)
