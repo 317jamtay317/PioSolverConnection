@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Commands", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Dtos", "src\PioConnection.Dtos\PioConnection.Dtos.csproj", "{F1EDD41F-3355-4950-A9B8-B8AF943C83AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Dtos.Tests.Unit", "tests\PioConnection.Dtos.Tests.Unit\PioConnection.Dtos.Tests.Unit.csproj", "{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{F1EDD41F-3355-4950-A9B8-B8AF943C83AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1EDD41F-3355-4950-A9B8-B8AF943C83AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1EDD41F-3355-4950-A9B8-B8AF943C83AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA541263-5D38-4C44-A9B2-014073A6674F} = {A161700E-10CA-4835-9C45-068CDDD9B81C}
@@ -61,5 +67,6 @@ Global
 		{0AD0D4F5-6FF4-47E9-A9FD-E85B66755B12} = {A161700E-10CA-4835-9C45-068CDDD9B81C}
 		{6A2C7F1C-EADB-4560-9B89-8802E81B1FA7} = {A161700E-10CA-4835-9C45-068CDDD9B81C}
 		{F1EDD41F-3355-4950-A9B8-B8AF943C83AB} = {A161700E-10CA-4835-9C45-068CDDD9B81C}
+		{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873} = {928746BF-2D8A-4591-929C-5A9EEDDF13B9}
 	EndGlobalSection
 EndGlobal

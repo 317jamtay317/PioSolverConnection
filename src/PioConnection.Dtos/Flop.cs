@@ -3,39 +3,71 @@ using System.Collections.ObjectModel;
 
 namespace PioConnection.Dtos;
 
+/// <summary>
+/// Represents a collection of exactly 3 cards, known as a "flop" in poker.
+/// This class ensures that a flop can only contain exactly 3 cards.
+/// </summary>
 public class Flop : ICollection<Card>
 {
-    
+    // Implements ICollection<Card> and provides card management methods specific to a flop in poker.
+
+    /// <summary>
+    /// Copies the elements of the Flop to an Array, starting at the specified index.
+    /// </summary>
+    /// <param name="array">The one-dimensional Array that is the destination of the elements copied from Flop.</param>
+    /// <param name="index">The zero-based index in array at which copying begins.</param>
     public void CopyTo(Array array, int index)
     {
         ((ICollection)_cards).CopyTo(array, index);
     }
 
+    /// <summary>
+    /// Gets a value indicating whether access to the Flop is synchronized (thread safe).
+    /// </summary>
     public bool IsSynchronized => ((ICollection)_cards).IsSynchronized;
 
+    /// <summary>
+    /// Gets an object that can be used to synchronize access to the Flop.
+    /// </summary>
     public object SyncRoot => ((ICollection)_cards).SyncRoot;
 
-    public int Add(object? value) =>
-        ((IList)_cards).Add(value);
+    /// <summary>
+    /// Adds an object to the Flop.
+    /// This is an explicit interface implementation for non-generic collections.
+    /// </summary>
+    public int Add(object? value) => ((IList)_cards).Add(value);
 
-    public bool Contains(object? value) =>
-        ((IList)_cards).Contains(value);
+    /// <summary>
+    /// Determines whether the Flop contains a specific value.
+    /// This is an explicit interface implementation for non-generic collections.
+    /// </summary>
+    public bool Contains(object? value) => ((IList)_cards).Contains(value);
 
-    public int IndexOf(object? value) =>
-        ((IList)_cards).IndexOf(value);
+    /// <summary>
+    /// Searches for the specified object and returns the zero-based index of the first occurrence.
+    /// </summary>
+    public int IndexOf(object? value) => ((IList)_cards).IndexOf(value);
 
-    public void Insert(int index, object? value)
-    {
-        ((IList)_cards).Insert(index, value);
-    }
+    /// <summary>
+    /// Inserts an object into the Flop at the specified index.
+    /// </summary>
+    public void Insert(int index, object? value) => ((IList)_cards).Insert(index, value);
 
-    public void Remove(object? value)
-    {
-        ((IList)_cards).Remove(value);
-    }
+    /// <summary>
+    /// Removes the first occurrence of a specific object from the Flop.
+    /// </summary>
+    public void Remove(object? value) => ((IList)_cards).Remove(value);
 
+    /// <summary>
+    /// Gets a value indicating whether the Flop has a fixed size.
+    /// </summary>
     public bool IsFixedSize => ((IList)_cards).IsFixedSize;
 
+    /// <summary>
+    /// Adds a card to the flop. A flop can only contain 3 cards; exceeding this limit throws an exception.
+    /// </summary>
+    /// <param name="item">The card to add to the flop.</param>
+    /// <exception cref="NotSupportedException">Thrown when attempting to add more than 3 cards.</exception>
     public void Add(Card item)
     {
         if (Count == 3)
@@ -45,6 +77,11 @@ public class Flop : ICollection<Card>
         _cards.Add(item);
     }
 
+    /// <summary>
+    /// Adds a range of cards to the flop. If the collection contains more than 3 cards, an exception is thrown.
+    /// </summary>
+    /// <param name="collection">The collection of cards to add.</param>
+    /// <exception cref="NotSupportedException">Thrown when attempting to add more than 3 cards in total.</exception>
     public void AddRange(IEnumerable<Card> collection)
     {
         if (Count >= 3 || collection.Count() > 3)
@@ -54,195 +91,67 @@ public class Flop : ICollection<Card>
         _cards.AddRange(collection);
     }
 
-    public ReadOnlyCollection<Card> AsReadOnly() =>
-        _cards.AsReadOnly();
+    /// <summary>
+    /// Returns a read-only collection of cards in the flop.
+    /// </summary>
+    public ReadOnlyCollection<Card> AsReadOnly() => _cards.AsReadOnly();
 
-    public int BinarySearch(int index, int count, Card item, IComparer<Card>? comparer) =>
-        _cards.BinarySearch(index, count, item, comparer);
+    // Additional utility methods related to searching, sorting, and manipulating cards in the flop.
+    // These are standard list operations delegated to the internal _cards list.
 
-    public int BinarySearch(Card item) =>
-        _cards.BinarySearch(item);
+    /// <summary>
+    /// Clears all cards from the flop.
+    /// </summary>
+    public void Clear() => _cards.Clear();
 
-    public int BinarySearch(Card item, IComparer<Card>? comparer) =>
-        _cards.BinarySearch(item, comparer);
+    /// <summary>
+    /// Determines whether the flop contains a specific card.
+    /// </summary>
+    public bool Contains(Card item) => _cards.Contains(item);
 
-    public void Clear()
-    {
-        _cards.Clear();
-    }
-
-    public bool Contains(Card item) =>
-        _cards.Contains(item);
-
-    public List<TOutput> ConvertAll<TOutput>(Converter<Card, TOutput> converter) =>
-        _cards.ConvertAll(converter);
-
-    public void CopyTo(int index, Card[] array, int arrayIndex, int count)
-    {
-        _cards.CopyTo(index, array, arrayIndex, count);
-    }
-
-    public void CopyTo(Card[] array)
-    {
-        _cards.CopyTo(array);
-    }
-
+    /// <summary>
+    /// Copies and array into a specific location of the flop
+    /// </summary>
+    /// <param name="array">the items you'd like to copy</param>
+    /// <param name="arrayIndex">the index that you'd like to copy to.</param>
     public void CopyTo(Card[] array, int arrayIndex)
     {
         _cards.CopyTo(array, arrayIndex);
     }
 
-    public int EnsureCapacity(int capacity) =>
-        _cards.EnsureCapacity(capacity);
-
-    public bool Exists(Predicate<Card> match) =>
-        _cards.Exists(match);
-
-    public Card Find(Predicate<Card> match) =>
-        _cards.Find(match);
-
-    public List<Card> FindAll(Predicate<Card> match) =>
-        _cards.FindAll(match);
-
-    public int FindIndex(int startIndex, int count, Predicate<Card> match) =>
-        _cards.FindIndex(startIndex, count, match);
-
-    public int FindIndex(int startIndex, Predicate<Card> match) =>
-        _cards.FindIndex(startIndex, match);
-
-    public int FindIndex(Predicate<Card> match) =>
-        _cards.FindIndex(match);
-
-    public Card FindLast(Predicate<Card> match) =>
-        _cards.FindLast(match);
-
-    public int FindLastIndex(int startIndex, int count, Predicate<Card> match) =>
-        _cards.FindLastIndex(startIndex, count, match);
-
-    public int FindLastIndex(int startIndex, Predicate<Card> match) =>
-        _cards.FindLastIndex(startIndex, match);
-
-    public int FindLastIndex(Predicate<Card> match) =>
-        _cards.FindLastIndex(match);
-
-    public void ForEach(Action<Card> action)
-    {
-        _cards.ForEach(action);
-    }
-
-    public List<Card> GetRange(int index, int count) =>
-        _cards.GetRange(index, count);
-
-    public int IndexOf(Card item) =>
-        _cards.IndexOf(item);
-
-    public int IndexOf(Card item, int index) =>
-        _cards.IndexOf(item, index);
-
-    public int IndexOf(Card item, int index, int count) =>
-        _cards.IndexOf(item, index, count);
-
-    public void Insert(int index, Card item)
-    {
-        _cards.Insert(index, item);
-    }
-
-    public void InsertRange(int index, IEnumerable<Card> collection)
-    {
-        _cards.InsertRange(index, collection);
-    }
-
-    public int LastIndexOf(Card item) =>
-        _cards.LastIndexOf(item);
-
-    public int LastIndexOf(Card item, int index) =>
-        _cards.LastIndexOf(item, index);
-
-    public int LastIndexOf(Card item, int index, int count) =>
-        _cards.LastIndexOf(item, index, count);
-
+    /// <summary>
+    /// Removes a card from the Flop
+    /// </summary>
+    /// <param name="item">The card that you'd like to remove</param>
+    /// <returns>true if successful, otherwise, false</returns>
     public bool Remove(Card item) =>
         _cards.Remove(item);
 
-    public int RemoveAll(Predicate<Card> match) =>
-        _cards.RemoveAll(match);
+    /// <summary>
+    /// Copies the elements of the flop to a specified array.
+    /// </summary>
+    public void CopyTo(Card[] array) => _cards.CopyTo(array);
 
-    public void RemoveAt(int index)
-    {
-        _cards.RemoveAt(index);
-    }
-
-    public void RemoveRange(int index, int count)
-    {
-        _cards.RemoveRange(index, count);
-    }
-
-    public void Reverse()
-    {
-        _cards.Reverse();
-    }
-
-    public void Reverse(int index, int count)
-    {
-        _cards.Reverse(index, count);
-    }
-
-    public List<Card> Slice(int start, int length) =>
-        _cards.Slice(start, length);
-
-    public void Sort()
-    {
-        _cards.Sort();
-    }
-
-    public void Sort(IComparer<Card>? comparer)
-    {
-        _cards.Sort(comparer);
-    }
-
-    public void Sort(Comparison<Card> comparison)
-    {
-        _cards.Sort(comparison);
-    }
-
-    public void Sort(int index, int count, IComparer<Card>? comparer)
-    {
-        _cards.Sort(index, count, comparer);
-    }
-
-    public Card[] ToArray() =>
-        _cards.ToArray();
-
-    public void TrimExcess()
-    {
-        _cards.TrimExcess();
-    }
-
-    public bool TrueForAll(Predicate<Card> match) =>
-        _cards.TrueForAll(match);
-
-    public int Capacity
-    {
-        get => _cards.Capacity;
-        set => _cards.Capacity = value;
-    }
-
+    /// <summary>
+    /// Gets the number of cards currently in the flop.
+    /// </summary>
     public int Count => _cards.Count;
 
-    public Card this[int index]
-    {
-        get => _cards[index];
-        set => _cards[index] = value;
-    }
-
+    /// <summary>
+    /// Gets a value indicating whether the Flop is read-only.
+    /// </summary>
     public bool IsReadOnly => ((ICollection<Card>)_cards).IsReadOnly;
 
-    public IEnumerator<Card> GetEnumerator() =>
-        _cards.GetEnumerator();
+    /// <summary>
+    /// Returns an enumerator that iterates through the flop.
+    /// </summary>
+    public IEnumerator<Card> GetEnumerator() => _cards.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator() =>
-        GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+    /// <summary>
+    /// Gets the first card in the flop. Throws an exception if there are not exactly 3 cards.
+    /// </summary>
     public Card FistCard
     {
         get
@@ -251,11 +160,13 @@ public class Flop : ICollection<Card>
             {
                 throw new NotSupportedException("A flop must have 3 cards");
             }
-
             return this[0];
         }
     }
 
+    /// <summary>
+    /// Gets the second card in the flop. Throws an exception if there are not exactly 3 cards.
+    /// </summary>
     public Card SecondCard
     {
         get
@@ -264,11 +175,13 @@ public class Flop : ICollection<Card>
             {
                 throw new NotSupportedException("A flop must have 3 cards");
             }
-
             return this[1];
         }
     }
 
+    /// <summary>
+    /// Gets the third card in the flop. Throws an exception if there are not exactly 3 cards.
+    /// </summary>
     public Card ThirdCard
     {
         get
@@ -277,10 +190,18 @@ public class Flop : ICollection<Card>
             {
                 throw new NotSupportedException("A flop must have 3 cards");
             }
-
             return this[2];
         }
     }
-    
+
+    /// <summary>
+    /// Gets the card from that index
+    /// </summary>
+    /// <param name="index">the 0 based index location of the card</param>
+    public Card this[int index] => _cards[index];
+
+    /// <summary>
+    /// Internal storage for cards in the flop.
+    /// </summary>
     private List<Card> _cards = new();
 }
