@@ -30,28 +30,6 @@ jobs:
           docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Commands.Tests.Unit/PioConnection.Commands.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos && \
           docker run --rm -v "${{ github.workspace }}:/app" -w /app mcr.microsoft.com/dotnet/sdk:8.0 dotnet test tests/PioConnection.Api.Tests.Unit/PioConnection.Api.Tests.Unit.csproj --collect:"XPlat Code Coverage" --results-directory ./testresults/dtos
 
-
-
-#debug start
-      # Step 4: Check test results directory output
-      - name: List test results directory
-        run: ls -R testresults
-
-      # Step 5: Install ReportGenerator to convert coverage to Cobertura format
-      - name: Install ReportGenerator
-        run: dotnet tool install -g dotnet-reportgenerator-globaltool
-
-      # Step 6: Convert the coverage report to Cobertura format
-      - name: Convert Coverage Report to Cobertura Format
-        run: |
-         reportgenerator "-reports:testresults/integration/**/coverage.cobertura.xml" \
-                         "-reports:testresults/dtos/**/coverage.cobertura.xml" \
-                         "-targetdir:coverage" -reporttypes:Cobertura
-
-      # Step 7: Check coverage directory output
-      - name: List coverage directory
-        run: ls -R coverage
-#debug end
       # Step 4: Upload coverage results to Codecov
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -59,8 +37,14 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/Cobertura.xml
           fail_ci_if_error: true
+      #Step 5: Upload test results to CodeCov
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+         token: ${{ secrets.CODECOV_TOKEN }}
 
-      # Step 5: Update the README with coverage badge
+      # Step 6: Update the README with coverage badge
       - name: Update README with Coverage Badge
         run: |
           # Ensure coverage/ directory is ignored
