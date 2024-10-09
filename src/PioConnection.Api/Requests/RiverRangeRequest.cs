@@ -7,7 +7,7 @@ namespace PioConnection.Api.Requests;
 /// </summary>
 public class RiverRangeRequest : TurnRangeRequest
 {
-    /// <inheritdoc cref="RangeRequest.Street"/>
+    /// <inheritdoc cref="SolverRequest.Street"/>
     public override Street Street => Street.River;
 
     /// <summary>
@@ -22,7 +22,7 @@ public class RiverRangeRequest : TurnRangeRequest
     /// </summary>
     public Card? RiverCard { get; set; }
 
-    /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
+    /// <inheritdoc cref="SolverRequest.BuildNodeString"/>
     public override string BuildNodeString() =>
         throw new NotImplementedException();
 }

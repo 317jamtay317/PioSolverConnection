@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PioConnection.Api.Dtos;
+using PioConnection.Api.Requests;
 
 namespace PioConnection.Api.Controllers;
 
@@ -14,7 +15,7 @@ public class BetSizeController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponse<string[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
-    public IActionResult GetFlopSizing()
+    public IActionResult GetFlopSizing(FlopSizingRequest flopSizingRequest)
     {
         throw new NotImplementedException();
     }
@@ -26,7 +27,7 @@ public class BetSizeController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponse<string[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
-    public IActionResult GetTurnSizing()
+    public IActionResult GetTurnSizing(TurnSizingRequest request)
     {
         throw new NotImplementedException();
     }
@@ -38,7 +39,7 @@ public class BetSizeController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponse<string[]>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
-    public IActionResult GetRiverSizing()
+    public IActionResult GetRiverSizing(RiverSizingRequest riverSizingRequest)
     {
         throw new NotImplementedException();
     }

@@ -12,7 +12,7 @@ public class RangeService(
     ISolverConnectionFactory connectionFactory,
     IConfiguration configuration) : IRangeService
 {
-    public string[] GetRange(RangeRequest request)
+    public string[] GetRange(SolverRequest request)
     {
         var solverPath = configuration.GetValue<string>("piosolver-path");
         if (string.IsNullOrWhiteSpace(solverPath))

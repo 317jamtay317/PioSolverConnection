@@ -16,6 +16,24 @@ public class NodeStringBuilder
     }
 
     /// <summary>
+    /// Adds multiple actions to the oop player actions in the node string on the flop
+    /// </summary>
+    public NodeStringBuilder WithOOPFlopActions(IEnumerable<PlayerAction> playerActions)
+    {
+        _oopFlopActions.AddRange(playerActions);
+        return this;
+    }
+    
+    /// <summary>
+    /// Adds multiple actions to the ip player actions in the node string on the flop
+    /// </summary>
+    public NodeStringBuilder WithIPFlopActions(IEnumerable<PlayerAction> playerActions)
+    {
+        _ipFlopActions.AddRange(playerActions);
+        return this;
+    }
+
+    /// <summary>
     /// Adds an action to the IP players actions in the node string on the flop. SeeRemarks...
     /// </summary>
     /// <remarks>If This is not added we will be reciving the IP players range</remarks>
@@ -44,19 +62,68 @@ public class NodeStringBuilder
     /// <summary>
     /// Adds a turn action to the oop players action
     /// </summary>
-    /// <param name="action">The oop players action</param>
+    /// <param name="action">The oop players actions</param>
     public NodeStringBuilder WithOOPTurnAction(PlayerAction action)
     {
         _oopTurnActions.Add(action);
         return this;
     }
     /// <summary>
+    /// Adds a range of turn actions to the oop players action
+    /// </summary>
+    /// <param name="actions">The oop players actions</param>
+    public NodeStringBuilder WithOOPTurnActions(IEnumerable<PlayerAction>? actions)
+    {
+        if(actions is not null)
+            _oopTurnActions.AddRange(actions);
+        return this;
+    }
+    /// <summary>
+    /// Adds a range of turn actions to the ip players action
+    /// </summary>
+    /// <param name="actions">The ip players actions</param>
+    public NodeStringBuilder WithIPTurnActions(IEnumerable<PlayerAction>? actions)
+    {
+        if(actions is not null)
+            _ipTurnActions.AddRange(actions);
+        return this;
+    }
+    /// <summary>
     /// Adds a turn action to the IP players action
     /// </summary>
-    /// <param name="action">The IP players action</param>
+    /// <param name="action">The IP players actions</param>
     public NodeStringBuilder WithIPTurnAction(PlayerAction action)
     {
         _ipTurnActions.Add(action);
+        return this;
+    }
+    /// <summary>
+    /// Adds a range of river actions to the ip players action
+    /// </summary>
+    /// <param name="actions">The ip players actions</param>
+    public NodeStringBuilder WithIPRiverActions(IEnumerable<PlayerAction>? actions)
+    {
+        if(actions is not null)
+            _ipRiverActions.AddRange(actions);
+        return this;
+    }
+    /// <summary>
+    /// Adds a range of river actions to the ip players action
+    /// </summary>
+    /// <param name="actions">The ip players actions</param>
+    public NodeStringBuilder WithOOPRiverActions(IEnumerable<PlayerAction>? actions)
+    {
+        if(actions is not null)
+            _oopRiverActions.AddRange(actions);
+        return this;
+    }
+    /// <summary>
+    /// Adds a river action to the OOP players action
+    /// </summary>
+    /// <param name="action">The IP players action</param>
+    public NodeStringBuilder WithOOPRiverAction(PlayerAction action)
+    {
+        _ipRiverActions.Add(action);
         return this;
     }
     

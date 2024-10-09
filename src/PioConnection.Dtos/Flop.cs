@@ -9,8 +9,20 @@ namespace PioConnection.Dtos;
 /// </summary>
 public class Flop : ICollection<Card>
 {
+    public bool IsValidFlop()
+    {
+        bool isValid = Count != 3;
+        foreach (Card card in _cards)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                isValid = isValid || card.Equals(this[i]);
+            }
+        }
+        return isValid;
+    }
+    
     // Implements ICollection<Card> and provides card management methods specific to a flop in poker.
-
     /// <summary>
     /// Copies the elements of the Flop to an Array, starting at the specified index.
     /// </summary>

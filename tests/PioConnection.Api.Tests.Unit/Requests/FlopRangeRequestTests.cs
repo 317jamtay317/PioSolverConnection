@@ -25,6 +25,25 @@ public class FlopRangeRequestTests
         result.Should().Be(expectedString);
     }
 
+    [Fact]
+    public void FilePath_ShouldThowArgumentException_WhenThereAreNoFlopCards()
+    {
+        //arrange
+        FlopRangeRequest request = new();
+
+        Action action = () =>
+        {
+            var a = request.FilePath;
+        };
+        //act
+
+        //assert
+        action
+            .Should()
+            .Throw<ArgumentException>()
+            .WithMessage("The flop cards are required");
+    }
+
     #region Data Classes
     
     private class BuildFlopNodeStringData : IEnumerable<object[]>

@@ -4,7 +4,7 @@ using PioConnection.Dtos;
 
 namespace PioConnection.Api.Requests;
 
-public abstract class RangeRequest
+public abstract class SolverRequest
 {
     /// <summary>
     /// Gets or sets the type of game we're studying
@@ -15,7 +15,7 @@ public abstract class RangeRequest
     /// Gets the file path to be openend
     /// </summary>
     [JsonIgnore]
-    public abstract string FilePath { get; } 
+    public abstract string? FilePath { get; } 
     
     /// <summary>
     /// Gets a value to represent the place in the hand we are.

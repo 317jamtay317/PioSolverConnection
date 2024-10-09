@@ -18,6 +18,13 @@ public class CardTests
         card.Should().BeEquivalentTo((Card)expectedValue);
     }
 
+    [Theory]
+    [ClassData(typeof(EqualsData))]
+    public void Equals_ShouldBeTrue_WhenCardIsTheSame(Card card, Card compare, bool isEqual)
+    {
+        card.Equals(compare).Should().Be(isEqual);
+    }
+
     #region ClassMemberData
 
     public class CreateCardData : IEnumerable<object[]>
@@ -84,5 +91,17 @@ public class CardTests
     }
     
 
+    private class EqualsData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            yield return [Card.AceDiamonds(), Card.AceDiamonds(), true];
+            yield return [Card.AceDiamonds(), Card.AceClubs(), false];
+            yield return [Card.AceDiamonds(), Card.TwoClubs(), false];
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() =>
+            GetEnumerator();
+    }
     #endregion
 }

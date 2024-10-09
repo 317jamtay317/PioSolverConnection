@@ -6,13 +6,15 @@ using PioConnection.Dtos;
 
 namespace PioConnection.Api.Requests;
 
-public class FlopRangeRequest : RangeRequest
+public class FlopRangeRequest : SolverRequest
 {
     [JsonIgnore]
     public override string FilePath
     {
         get
         {
+            if (Flop is null || !Flop.Any()) 
+                throw new ArgumentException("The flop cards are required");
             var filePathBuilder = new FilePathBuilder()
                 .IsTournament()
                 .PotType(PotType.SRP)
@@ -24,7 +26,7 @@ public class FlopRangeRequest : RangeRequest
         }
     }
 
-    /// <inheritdoc cref="RangeRequest.Street"/>
+    /// <inheritdoc cref="SolverRequest.Street"/>
     public override Street Street => Street.Flop;
 
     /// <summary>
@@ -58,9 +60,9 @@ public class FlopRangeRequest : RangeRequest
     /// you can use a string array of card representation for this.
     /// example: ["As","Ac","Ad"] would be the flop AsAcAd  
     /// </summary>
-    public Flop Flop { get; set; }
+    public Flop? Flop { get; set; }
 
-    /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
+    /// <inheritdoc cref="SolverRequest.BuildNodeString"/>
     public override string BuildNodeString()
     {
         NodeStringBuilder builder = new NodeStringBuilder();

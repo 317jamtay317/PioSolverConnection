@@ -5,7 +5,7 @@ namespace PioConnection.Api.Requests;
 
 public class TurnRangeRequest : FlopRangeRequest
 {
-    /// <inheritdoc cref="RangeRequest.Street"/>
+    /// <inheritdoc cref="SolverRequest.Street"/>
     public override Street Street => Street.Turn;
 
     public IEnumerable<PlayerAction> OOPPlayerTurnActions { get; set; } = [];
@@ -17,7 +17,7 @@ public class TurnRangeRequest : FlopRangeRequest
     /// </summary>
     public Card? TurnCard { get; set; }
 
-    /// <inheritdoc cref="RangeRequest.BuildNodeString"/>
+    /// <inheritdoc cref="SolverRequest.BuildNodeString"/>
     public override string BuildNodeString()
     {
         var builder = new NodeStringBuilder();
