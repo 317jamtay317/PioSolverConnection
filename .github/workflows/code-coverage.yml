@@ -59,13 +59,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/Cobertura.xml
           fail_ci_if_error: true
-        # Upload test results to Codecov
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
-        with:
-         token: ${{ secrets.CODECOV_TOKEN }}
-
+          
       # Step 5: Update the README with coverage badge
       - name: Update README with Coverage Badge
         run: |
