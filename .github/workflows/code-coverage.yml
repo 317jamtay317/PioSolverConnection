@@ -59,7 +59,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/Cobertura.xml
           fail_ci_if_error: true
-
+          
       # Step 5: Update the README with coverage badge
       - name: Update README with Coverage Badge
         run: |
