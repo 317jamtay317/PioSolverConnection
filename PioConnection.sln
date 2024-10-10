@@ -1,26 +1,34 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A161700E-10CA-4835-9C45-068CDDD9B81C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{928746BF-2D8A-4591-929C-5A9EEDDF13B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Api", "src\PioConnection.Api\PioConnection.Api.csproj", "{BA541263-5D38-4C44-A9B2-014073A6674F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Api", "src\PioConnection.Api\PioConnection.Api.csproj", "{BA541263-5D38-4C44-A9B2-014073A6674F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.ConnectionDetails", "src\C_sharp_2_0\PioConnection.ConnectionDetails.csproj", "{24EB3A37-2AFB-4367-9D1F-86F79700AAB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.ConnectionDetails", "src\C_sharp_2_0\PioConnection.ConnectionDetails.csproj", "{24EB3A37-2AFB-4367-9D1F-86F79700AAB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Api.Tests.Unit", "tests\PioConnection.Api.Tests.Unit\PioConnection.Api.Tests.Unit.csproj", "{FAA44922-972C-4082-9FF4-4CB70D98B210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Api.Tests.Unit", "tests\PioConnection.Api.Tests.Unit\PioConnection.Api.Tests.Unit.csproj", "{FAA44922-972C-4082-9FF4-4CB70D98B210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Api.Tests.Intergration", "tests\PioConnection.Api.Tests.Intergration\PioConnection.Api.Tests.Intergration.csproj", "{EAAAC2E5-E9BE-4731-8111-0B15D13B8612}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Api.Tests.Intergration", "tests\PioConnection.Api.Tests.Intergration\PioConnection.Api.Tests.Intergration.csproj", "{EAAAC2E5-E9BE-4731-8111-0B15D13B8612}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTests", "src\ConsoleTests\ConsoleTests.csproj", "{0AD0D4F5-6FF4-47E9-A9FD-E85B66755B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTests", "src\ConsoleTests\ConsoleTests.csproj", "{0AD0D4F5-6FF4-47E9-A9FD-E85B66755B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Commands", "src\PioConnection.Commands\PioConnection.Commands.csproj", "{6A2C7F1C-EADB-4560-9B89-8802E81B1FA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Commands", "src\PioConnection.Commands\PioConnection.Commands.csproj", "{6A2C7F1C-EADB-4560-9B89-8802E81B1FA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Dtos", "src\PioConnection.Dtos\PioConnection.Dtos.csproj", "{F1EDD41F-3355-4950-A9B8-B8AF943C83AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Dtos", "src\PioConnection.Dtos\PioConnection.Dtos.csproj", "{F1EDD41F-3355-4950-A9B8-B8AF943C83AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Dtos.Tests.Unit", "tests\PioConnection.Dtos.Tests.Unit\PioConnection.Dtos.Tests.Unit.csproj", "{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Dtos.Tests.Unit", "tests\PioConnection.Dtos.Tests.Unit\PioConnection.Dtos.Tests.Unit.csproj", "{8092088B-DF66-4DEA-ADFA-E2B4D1B3F873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Commands.Tests.Unit", "tests\PioConnection.Commands.Tests.Unit\PioConnection.Commands.Tests.Unit.csproj", "{FDED3C54-032F-4955-9BF9-C3E95C2FFDDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PioConnection.Commands.Tests.Unit", "tests\PioConnection.Commands.Tests.Unit\PioConnection.Commands.Tests.Unit.csproj", "{FDED3C54-032F-4955-9BF9-C3E95C2FFDDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C55016D8-67A4-415A-AA38-39EFAA2EB9E7}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +72,9 @@ Global
 		{FDED3C54-032F-4955-9BF9-C3E95C2FFDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDED3C54-032F-4955-9BF9-C3E95C2FFDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDED3C54-032F-4955-9BF9-C3E95C2FFDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA541263-5D38-4C44-A9B2-014073A6674F} = {A161700E-10CA-4835-9C45-068CDDD9B81C}

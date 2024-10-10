@@ -85,18 +85,18 @@ var app = builder.Build();
 
 // Map controllers
 app.MapControllers();
-
+logger.Information("Current environment: {Environment}", app.Environment.EnvironmentName);
 // Configure Swagger
-if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("enable-swagger"))
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "PioConnection API v1");
-        c.RoutePrefix = "swagger"; // Ensures Swagger is served at /swagger
-    });
-}
 
+logger.Information("Configuring Swagger...");
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PioConnection API v1");
+    c.RoutePrefix = "swagger";
+});
+logger.Information("Swagger configuration completed.");
+app.Urls.Add("http://*:80");
 app.Run();
 
 public partial class Program

@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FFF67606-C7D2-46CC-8EB1-ADAA47F32D7C}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.ConnectionDetails", "src\C_sharp_2_0\PioConnection.ConnectionDetails.csproj", "{DB88547E-6D41-4832-BA23-ADE973AF6E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Api", "src\PioConnection.Api\PioConnection.Api.csproj", "{D1E8FCD7-40C3-4D02-BFB4-148965F64BA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Commands", "src\PioConnection.Commands\PioConnection.Commands.csproj", "{8BCE59D1-F801-40C7-93A2-020E1B1D14E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PioConnection.Dtos", "src\PioConnection.Dtos\PioConnection.Dtos.csproj", "{AB4A042F-548D-4BD2-BA9C-351EBCE24980}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB88547E-6D41-4832-BA23-ADE973AF6E97} = {FFF67606-C7D2-46CC-8EB1-ADAA47F32D7C}
+		{D1E8FCD7-40C3-4D02-BFB4-148965F64BA6} = {FFF67606-C7D2-46CC-8EB1-ADAA47F32D7C}
+		{8BCE59D1-F801-40C7-93A2-020E1B1D14E9} = {FFF67606-C7D2-46CC-8EB1-ADAA47F32D7C}
+		{AB4A042F-548D-4BD2-BA9C-351EBCE24980} = {FFF67606-C7D2-46CC-8EB1-ADAA47F32D7C}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB88547E-6D41-4832-BA23-ADE973AF6E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB88547E-6D41-4832-BA23-ADE973AF6E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB88547E-6D41-4832-BA23-ADE973AF6E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB88547E-6D41-4832-BA23-ADE973AF6E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E8FCD7-40C3-4D02-BFB4-148965F64BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E8FCD7-40C3-4D02-BFB4-148965F64BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E8FCD7-40C3-4D02-BFB4-148965F64BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E8FCD7-40C3-4D02-BFB4-148965F64BA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BCE59D1-F801-40C7-93A2-020E1B1D14E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BCE59D1-F801-40C7-93A2-020E1B1D14E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BCE59D1-F801-40C7-93A2-020E1B1D14E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BCE59D1-F801-40C7-93A2-020E1B1D14E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB4A042F-548D-4BD2-BA9C-351EBCE24980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB4A042F-548D-4BD2-BA9C-351EBCE24980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB4A042F-548D-4BD2-BA9C-351EBCE24980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB4A042F-548D-4BD2-BA9C-351EBCE24980}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

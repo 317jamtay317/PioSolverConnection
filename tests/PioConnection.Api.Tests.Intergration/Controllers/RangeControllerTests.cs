@@ -99,7 +99,7 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
     }
 
     [Fact]
-    public void GetRiverRange_ShouldReturnCorrectRange_WhenCalled()
+    public async Task GetRiverRange_ShouldReturnCorrectRange_WhenCalled()
     {
         //arrange
 
@@ -118,8 +118,17 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .Returns(factory.SolverConnection);
         factory.SolverConnection.GetResponseFromSolver($"{SolverCommands.ShowHumanReadableStratigy} r:0:c:c:6s:b50:c:2d")
             .Returns(returnRange);
-        //act
+        var request = new RiverRangeRequest()
+        {
+            Flop = [Card.AceClubs(), Card.TwoHearts(), Card.ThreeHearts()],
+        };
         
+        var stringContent = new StringContent(
+            JsonConvert.SerializeObject(request),
+            Encoding.UTF8,
+            MediaTypes.ApplicationJson);
+        //act
+        var apiResult = await _client.PostAsync("/range/turn", stringContent);
         //assert
     }
     private readonly HttpClient _client = factory.CreateClient();

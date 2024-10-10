@@ -30,7 +30,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-       docker build -t jamtay317/pioconnection:${{ github.sha }} .
+       docker build -t jamtay317/pioconnection:${{ github.sha }} -f ./Dockerfile .
        docker tag jamtay317/pioconnection:${{ github.sha }} jamtay317/pioconnection:dev-latest
 
 
