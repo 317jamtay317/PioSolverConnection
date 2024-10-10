@@ -1,11 +1,10 @@
 name: Push To Docker HUB
 
 on:
- workflow_dispatch:
- # workflow_run:
- #   workflows: [".NET Build and Test API"]
- #  types:
- #    - completed
+  workflow_run:
+    workflows: [".NET Build and Test API"]
+    types:
+      - completed
 
 jobs:
   build-and-push:
