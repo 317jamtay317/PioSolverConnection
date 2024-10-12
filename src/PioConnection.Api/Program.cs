@@ -1,10 +1,12 @@
 using System.Reflection;
+using FluentValidation;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PioConnection.Api.Core;
 using PioConnection.Api.Core.Swagger;
+using PioConnection.Api.Core.Validation;
 using PioConnection.Api.Dtos;
 using PioConnection.Api.Logging;
 using PioConnection.Api.Services;
@@ -78,9 +80,11 @@ builder.Services
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         options.SerializerSettings.Converters.Add(new StringEnumConverter());
     });
+builder.Services.AddValidatorsFromAssemblyContaining<FlopRangeRequestValidator>();
 builder.Services.AddScoped(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>));
 builder.Services.AddScoped<IRangeService, RangeService>();
 builder.Services.AddSingleton<ISolverConnectionFactory, SolverConnectionFactory>();
+builder.Services.AddSingleton<ISolverFileService, SolverFileService>();
 var app = builder.Build();
 
 // Map controllers
@@ -96,7 +100,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "swagger";
 });
 logger.Information("Swagger configuration completed.");
-app.Urls.Add("http://*:80");
+
 app.Run();
 
 public partial class Program

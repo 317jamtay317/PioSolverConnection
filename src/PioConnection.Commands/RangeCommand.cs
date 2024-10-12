@@ -24,7 +24,7 @@ public class RangeCommand : SolverCommand
     /// Constructor 
     /// </summary>
     /// <param name="metadata">Metadata to create the connection</param>
-    public RangeCommand(SolverMetadata metadata) : base(metadata)
+    public RangeCommand(SolverMetadata metadata, IConfiguration configuration) : base(metadata)
     {
     }
 

@@ -8,24 +8,6 @@ namespace PioConnection.Api.Requests;
 
 public class FlopRangeRequest : SolverRequest
 {
-    [JsonIgnore]
-    public override string FilePath
-    {
-        get
-        {
-            if (Flop is null || !Flop.Any()) 
-                throw new ArgumentException("The flop cards are required");
-            var filePathBuilder = new FilePathBuilder()
-                .IsTournament()
-                .PotType(PotType.SRP)
-                .WithPositions(PlayerPosition.UTG, PlayerPosition.BTN)
-                .WithStackDepth(10)
-                .WithFlop(Flop.FistCard, Flop.SecondCard, Flop.ThirdCard)
-                .ToString();
-            return filePathBuilder;//TODO: figure out configuration and builder information
-        }
-    }
-
     /// <inheritdoc cref="SolverRequest.Street"/>
     public override Street Street => Street.Flop;
 
@@ -54,13 +36,6 @@ public class FlopRangeRequest : SolverRequest
     ///  - <see cref="PlayerAction"/> with <see cref="PlayerAction.ActionType"/> = Call and <see cref="PlayerAction.Size"/> = null
     /// </remarks>
     public IEnumerable<PlayerAction> IpFlopPlayerActions { get; set; } = [];
-    
-    /// <summary>
-    /// Gets or sets the flop cards.
-    /// you can use a string array of card representation for this.
-    /// example: ["As","Ac","Ad"] would be the flop AsAcAd  
-    /// </summary>
-    public Flop? Flop { get; set; }
 
     /// <inheritdoc cref="SolverRequest.BuildNodeString"/>
     public override string BuildNodeString()

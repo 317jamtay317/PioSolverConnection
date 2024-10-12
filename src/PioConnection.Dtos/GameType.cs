@@ -5,6 +5,7 @@
 /// </summary>
 public enum GameType
 {
+    NotDefined,
     Tournaments,
     Cash
 }

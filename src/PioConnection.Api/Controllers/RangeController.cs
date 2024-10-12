@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using PioConnection.Api.Core;
 using PioConnection.Api.Dtos;
 using PioConnection.Api.Logging;
@@ -11,7 +12,9 @@ namespace PioConnection.Api.Controllers;
 [Route("range")]
 public class RangeController(
     IRangeService rangeService, 
-    ILoggerWrapper<RangeController> logger) : ControllerBase
+    ILoggerWrapper<RangeController> logger,
+    IValidator<FlopRangeRequest> flopRequestValidator,
+    IValidator<TurnRangeRequest> turnRangeValidator) : ControllerBase
 {
     /// <summary>
     /// Gets the flop range from the solver.
@@ -23,6 +26,20 @@ public class RangeController(
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
     public IActionResult GetFlopRange([FromBody] FlopRangeRequest request)
     {
+        var validationResult = flopRequestValidator.Validate(request);
+        if (!validationResult.IsValid)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                logger.Info(error.ToString());
+            }
+            return BadRequest(
+                new ApiResponse<string>()
+                {
+                    IsSuccess = false,
+                    Errors = validationResult.Errors.Select(x => new ErrorInfo(x.ErrorMessage))
+                });
+        }
         return GetRangeResult(request);
     }
 
@@ -37,6 +54,20 @@ public class RangeController(
     [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
     public IActionResult GetTurnRange([FromBody] TurnRangeRequest request)
     {
+        var validationResult = turnRangeValidator.Validate(request);
+        if (!validationResult.IsValid)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                logger.Info(error.ToString());
+            }
+            return BadRequest(
+                new ApiResponse<string>()
+                {
+                    IsSuccess = false,
+                    Errors = validationResult.Errors.Select(x => new ErrorInfo(x.ErrorMessage))
+                });
+        }
         return GetRangeResult(request);
     }
 

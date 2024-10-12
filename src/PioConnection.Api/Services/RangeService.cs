@@ -10,9 +10,10 @@ namespace PioConnection.Api.Services;
 
 public class RangeService(
     ISolverConnectionFactory connectionFactory,
-    IConfiguration configuration) : IRangeService
+    IConfiguration configuration,
+    ISolverFileService fileService) : IRangeService
 {
-    public string[] GetRange(SolverRequest request)
+    public string[] GetRange(FlopRangeRequest request)
     {
         var solverPath = configuration.GetValue<string>("piosolver-path");
         if (string.IsNullOrWhiteSpace(solverPath))
@@ -20,10 +21,17 @@ public class RangeService(
             throw new ArgumentNullException(nameof(solverPath), "Path is required to start the solver, please ensure that a setting called 'piosolver-path' is in appsettings");
         }
 
-        var metadata = new SolverMetadata(solverPath, request.FilePath);
+        var fileMetaData = new SolverFilePathMetadata(
+            request.Flop,
+            request.GameType,
+            request.StackSize,
+            request.OOPPlayerPosition,
+            request.IPPlayerPosition);
+        var filePath = fileService.GetFilePath(fileMetaData);
+        var metadata = new SolverMetadata(solverPath, filePath);
         using var connection = connectionFactory.Create(metadata);
         LoadTreeCommand loadTreeCommand = new(connection);
-        loadTreeCommand.Execute(request.FilePath);
+        loadTreeCommand.Execute($@"""{filePath}""");
         RangeCommand rangeCommand = new(connection)
         {
             NodeString = request.BuildNodeString()

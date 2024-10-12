@@ -5,6 +5,39 @@ namespace PioConnection.Dtos.Tests.Unit;
 public class FlopTests
 {
     [Fact]
+    public void IsValidFlop_ShouldBeTrue_WhenWeHaveThreeCards()
+    {
+        //arrange
+        Flop flop = [Card.AceClubs(), Card.AceDiamonds(), Card.AceSpades()];
+        //act
+        var isValid = flop.IsValidFlop();
+        //assert
+        isValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsValidFlop_ShouldBeFalse_WhenWeHave3CardsButHave2OfTheSameCards()
+    {
+        //arrange
+        Flop flop = [Card.AceClubs(), Card.AceClubs(), Card.AceDiamonds()];
+        //act
+        var isValid = flop.IsValidFlop();
+        //assert
+        isValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void IsValidFlop_ShouldBeFalse_WhenWeDoNotHave3Cards()
+    {
+        //arrange
+        Flop flop = [Card.AceClubs(), Card.AceDiamonds()];
+        //act
+        var isValid = flop.IsValidFlop();
+        //assert
+        isValid.Should().BeFalse();
+    }
+    
+    [Fact]
     public void FirstCard_ShouldThrowNotSupportedException_WhenCardCountIsLessThan3()
     {
         //arrange

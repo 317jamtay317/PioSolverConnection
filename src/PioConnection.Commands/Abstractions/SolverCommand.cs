@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using Client.Plugins;
 using Client.Util;
+using Microsoft.Extensions.Configuration;
 
 namespace PioConnection.Commands.Abstractions;
 

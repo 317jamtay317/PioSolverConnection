@@ -36,7 +36,10 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .Returns(returnRange);
         var request = new FlopRangeRequest()
         {
-            Position = PlayerPosition.BB,
+            GameType = GameType.Tournaments,
+            StackSize = StackSize._15,
+            IPPlayerPosition = PlayerPosition.BTN,
+            OOPPlayerPosition = PlayerPosition.BB,
             OOPFlopPlayerActions = [new PlayerAction(){ActionType = ActionType.Check}, new PlayerAction(){ActionType = ActionType.Raise, Size = 125}],
             IpFlopPlayerActions = [new PlayerAction(){ActionType = ActionType.Bet, Size = 25}],
             Flop = ["As", "Ac","Ah"]
@@ -78,8 +81,10 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
             .Returns(returnRange);
         var request = new TurnRangeRequest()
         {
+            GameType = GameType.Cash,
+            StackSize = StackSize._100,
             Flop = [Card.AceClubs(), Card.AceDiamonds(), Card.AceHearts()],
-            Position = PlayerPosition.BB,
+            OOPPlayerPosition = PlayerPosition.BB,
             OOPFlopPlayerActions = [PlayerAction.Check()],
             IpFlopPlayerActions = [PlayerAction.Check()],
             TurnCard = Card.SixSpades()
@@ -91,9 +96,9 @@ public class RangeControllerTests(CustomWebApplicationFactory<Program> factory)
         //act
         var apiResult = await _client.PostAsync("/range/turn", stringContent);
         //assert
-        apiResult.IsSuccessStatusCode.Should().BeTrue();
         var content = await apiResult.Content.ReadAsStringAsync();
         var apiResponse = JsonConvert.DeserializeObject<ApiResponse<string[]>>(content);
+        apiResult.IsSuccessStatusCode.Should().BeTrue();
         apiResponse.Data.Should().BeEquivalentTo(returnRange);
         apiResponse.Errors.Should().BeNull();
     }

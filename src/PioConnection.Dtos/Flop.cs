@@ -9,14 +9,20 @@ namespace PioConnection.Dtos;
 /// </summary>
 public class Flop : ICollection<Card>
 {
+    /// <summary>
+    /// Validates the flop is valid and has 3 unique cards
+    /// </summary>
+    /// <returns></returns>
     public bool IsValidFlop()
     {
-        bool isValid = Count != 3;
+        bool isValid = Count == 3;
         foreach (Card card in _cards)
         {
+            var currentIndex = this.IndexOf(card);
             for (int i = 0; i < Count; i++)
             {
-                isValid = isValid || card.Equals(this[i]);
+                if(i == currentIndex)continue;
+                isValid = isValid && !card.Equals(this[i]);
             }
         }
         return isValid;
