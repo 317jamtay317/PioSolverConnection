@@ -54,7 +54,7 @@ public class SolverFilePathServiceTests
     {
         //arrange
         var configurationSection = Substitute.For<IConfigurationSection>();
-        configurationSection.Value = "F:\\{GameType}\\{StackSize}\\{Positions}";
+        configurationSection.Value = "F:/{GameType}/{StackSize}/{Positions}";
         _configuration.GetSection("file-path-convention").Returns(configurationSection);
         SolverFilePathMetadata metadata = new SolverFilePathMetadata(
             [Card.AceClubs(), Card.AceDiamonds(), Card.AceHearts()],
