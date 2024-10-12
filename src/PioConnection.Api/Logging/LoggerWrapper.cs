@@ -4,6 +4,14 @@ public class LoggerWrapper<T>(ILogger<T> logger) : ILoggerWrapper<T>
     where T:class
 {
     /// <summary>
+    /// Logs the passed in message with the debug severity
+    /// </summary>
+    public void Debug(string message)
+    {
+        logger.LogDebug(message);
+    }
+    
+    /// <summary>
     /// Logs the passed in message with the info severity
     /// </summary>
     public void Info(string message)
