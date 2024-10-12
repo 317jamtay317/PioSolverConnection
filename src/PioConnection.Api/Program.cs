@@ -16,11 +16,10 @@ using ILogger = Serilog.ILogger;
 
 ILogger logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
+    .WriteTo.Console()
 #if DEBUG
     .WriteTo.Debug()
-    .WriteTo.Console()
 #else
-    .WriteTo.Console()
     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
 #endif
     .CreateLogger();
@@ -81,14 +80,16 @@ builder.Services
         options.SerializerSettings.Converters.Add(new StringEnumConverter());
     });
 builder.Services.AddValidatorsFromAssemblyContaining<FlopRangeRequestValidator>();
-builder.Services.AddScoped(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>));
+builder.Services.AddTransient(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>));
 builder.Services.AddScoped<IRangeService, RangeService>();
 builder.Services.AddSingleton<ISolverConnectionFactory, SolverConnectionFactory>();
 builder.Services.AddSingleton<ISolverFileService, SolverFileService>();
 var app = builder.Build();
-
+logger.Information("Hello this is working");
 // Map controllers
 app.MapControllers();
+var logWrapper = app.Services.GetRequiredService<ILoggerWrapper<Program>>();
+logWrapper.Debug("LogWrapper working");
 logger.Information("Current environment: {Environment}", app.Environment.EnvironmentName);
 // Configure Swagger
 

@@ -27,6 +27,8 @@ COPY --from=build /app/publish .
 
 # Expose port 80
 EXPOSE 80
+EXPOSE 57100
+EXPOSE 57300
 
 # Run the Web API
 ENTRYPOINT ["dotnet", "PioConnection.Api.dll"]

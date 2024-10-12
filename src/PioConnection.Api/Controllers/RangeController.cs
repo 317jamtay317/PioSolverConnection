@@ -31,7 +31,7 @@ public class RangeController(
         {
             foreach (var error in validationResult.Errors)
             {
-                logger.Info(error.ToString());
+                logger.Warning(error.ToString());
             }
             return BadRequest(
                 new ApiResponse<string>()
@@ -59,7 +59,7 @@ public class RangeController(
         {
             foreach (var error in validationResult.Errors)
             {
-                logger.Info(error.ToString());
+                logger.Warning(error.ToString());
             }
             return BadRequest(
                 new ApiResponse<string>()
