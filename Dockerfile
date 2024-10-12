@@ -2,14 +2,21 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copy the entire source code
-COPY . ./
+# Copy only the solution file and project files for better caching
+COPY PioConnection.Docker.sln ./
+COPY src/C_sharp_2_0/PioConnection.ConnectionDetails.csproj src/C_sharp_2_0/
+COPY src/PioConnection.Dtos/PioConnection.Dtos.csproj src/PioConnection.Dtos/
+COPY src/PioConnection.Commands/PioConnection.Commands.csproj src/PioConnection.Commands/
+COPY src/PioConnection.Api/PioConnection.Api.csproj src/PioConnection.Api/
 
-# Restore dependencies using the Docker-specific solution file
+# Restore dependencies only if project files have changed
 RUN dotnet restore PioConnection.Docker.sln
 
+# Copy the rest of the source code
+COPY . ./
+
 # Build the application
-RUN dotnet publish src/PioConnection.Api/PioConnection.Api.csproj -c Release -o /app/publish
+RUN dotnet publish src/PioConnection.Api/PioConnection.Api.csproj -c Release -o /app/publish --no-restore
 
 # Build runtime environment
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime

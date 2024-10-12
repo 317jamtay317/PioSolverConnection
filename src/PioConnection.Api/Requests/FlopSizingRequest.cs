@@ -5,9 +5,6 @@ namespace PioConnection.Api.Requests;
 
 public class FlopSizingRequest : SolverRequest
 {
-    /// <inheritdoc cref="SolverRequest.FilePath"/>
-    public override string? FilePath { get; }
-
     /// <inheritdoc cref="SolverRequest.Street"/>
     public override Street Street => Street.Flop;
 

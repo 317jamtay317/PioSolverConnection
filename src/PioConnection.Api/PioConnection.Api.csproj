@@ -16,12 +16,21 @@
     </ItemGroup>
 
     <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>PioConnection.Api.Tests.Unit</_Parameter1> <!-- The name of the project that you want the Internal class to be visible To it -->
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\C_sharp_2_0\PioConnection.ConnectionDetails.csproj" />
       <ProjectReference Include="..\PioConnection.Commands\PioConnection.Commands.csproj" />
       <ProjectReference Include="..\PioConnection.Dtos\PioConnection.Dtos.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.10.0" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Serilog" Version="4.0.2" />
