@@ -35,6 +35,12 @@ public class TurnRangeRequestValidator : AbstractValidator<TurnRangeRequest>
         RuleFor(x => x.IPPlayerTurnActions)
             .Must(FlopRangeRequestValidator.VerifyIpPlayersLastActionNotCheck)
             .WithMessage("The IP players last turn action is check, please add a turn card with a turn request.");
+        RuleFor(x => x.OOPFlopPlayerActions)
+            .Must(VerifyOOPFlopActions)
+            .WithMessage("The turn request must have oop players flop actions.");
+        RuleFor(x => x.IpFlopPlayerActions)
+            .Must(VerifyIPFlopActions)
+            .WithMessage("The turn request must have IP players flop actions.");
     }
 
     /// <summary>
@@ -86,4 +92,13 @@ public class TurnRangeRequestValidator : AbstractValidator<TurnRangeRequest>
     {
         return arg.HasValue;
     }
+    private bool VerifyOOPFlopActions(IEnumerable<PlayerAction> oopFlopActions)
+    {
+        return oopFlopActions.Any();
+    }
+    private bool VerifyIPFlopActions(IEnumerable<PlayerAction> ipFlopActions)
+    {
+        return ipFlopActions.Any();
+    }
+
 }

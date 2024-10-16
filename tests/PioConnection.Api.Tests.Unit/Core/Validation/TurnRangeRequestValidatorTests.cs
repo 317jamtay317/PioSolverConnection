@@ -10,6 +10,54 @@ namespace PioConnection.Api.Tests.Unit.Core.Validation;
 public class TurnRangeRequestValidatorTests
 {
     [Fact]
+    public void Validate_ShouldFail_WhenNoOOPFlopActions()
+    {
+        //arrange
+        TurnRangeRequest request = new()
+        {
+            GameType = GameType.Tournaments,
+            Flop = [Card.AceClubs(), Card.AceDiamonds(), Card.AceHearts()],
+            OOPFlopPlayerActions = [],
+            IpFlopPlayerActions = [PlayerAction.Check()],
+            StackSize = StackSize._20,
+            TurnCard = Card.TwoClubs(),
+            IPPlayerPosition = PlayerPosition.BTN,
+            OOPPlayerPosition = PlayerPosition.BB,
+            OOPPlayerTurnActions = [],
+            IPPlayerTurnActions = []
+        };
+        //act
+        var validationResult = _sut.Validate(request);
+        //assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().HaveCount(1);
+        validationResult.Errors.First().ErrorMessage.Should().Be("The turn request must have oop players flop actions.");
+    }
+    [Fact]
+    public void Validate_ShouldFail_WhenNoIPFlopActions()
+    {
+        //arrange
+        TurnRangeRequest request = new()
+        {
+            GameType = GameType.Tournaments,
+            Flop = [Card.AceClubs(), Card.AceDiamonds(), Card.AceHearts()],
+            OOPFlopPlayerActions = [PlayerAction.Check()],
+            IpFlopPlayerActions = [],
+            StackSize = StackSize._20,
+            TurnCard = Card.TwoClubs(),
+            IPPlayerPosition = PlayerPosition.BTN,
+            OOPPlayerPosition = PlayerPosition.BB,
+            OOPPlayerTurnActions = [],
+            IPPlayerTurnActions = []
+        };
+        //act
+        var validationResult = _sut.Validate(request);
+        //assert
+        validationResult.IsValid.Should().BeFalse();
+        validationResult.Errors.Should().HaveCount(1);
+        validationResult.Errors.First().ErrorMessage.Should().Be("The turn request must have IP players flop actions.");
+    }
+    [Fact]
     public void Validate_ShouldFail_WhenNoGameType()
     {
         //arrange

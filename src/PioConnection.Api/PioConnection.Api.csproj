@@ -4,16 +4,13 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>  <!-- Enables XML file generation -->
-        <NoWarn>$(NoWarn);1591</NoWarn>  <!-- Optional: Suppresses missing XML comments warnings -->
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <UserSecretsId>5d3ffdd2-c765-471d-b94b-419845319dab</UserSecretsId>
+        <DockerfileContext>..\..</DockerfileContext>
+        <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>  <!-- Optional: Suppresses missing XML comments warnings -->
     </PropertyGroup>
-
-    <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
@@ -32,6 +29,7 @@
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Serilog" Version="4.0.2" />
       <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />

@@ -1,0 +1,18 @@
+services:
+  pioconnection:
+    build:
+      context: .
+      dockerfile: ./Windows.DockerFile
+    container_name: pioapi
+    restart: always
+    volumes:
+      - C:\PioSOLVER:C:\app\program
+      - F:\:C:\app\sims
+    ports:
+      - '8080:80'
+      - '4024:4024'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:80
+      - piosolver-path="C:\app\program\PioSOLVER2-pro.exe"
+      - file-path-convention="C:\app\sims\{GameType}\{StackSize}\{Positions}"
