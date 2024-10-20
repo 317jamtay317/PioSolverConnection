@@ -28,7 +28,7 @@ public class SolverFilePathServiceTests
         //act
         var filePath = _sut.GetFilePath(metadata);
         //assert
-        filePath.Should().Be(@"F:/Tournaments/30BB/BTN vs BB/AcAdAh.cfr");
+        filePath.Should().Be(@"F:/Tournaments/30BB/BTN vs BB\AcAdAh.cfr");
     }
 
     [Fact]

@@ -24,9 +24,11 @@ public class RangeCommand : SolverCommand
     /// Constructor 
     /// </summary>
     /// <param name="metadata">Metadata to create the connection</param>
-    public RangeCommand(SolverMetadata metadata, IConfiguration configuration) : base(metadata)
+    public RangeCommand(SolverMetadata metadata) : base(metadata)
     {
     }
+
+    public virtual CommandRequest SolverCommandRequest { get; } = CommandRequest.ShowHumanReadableStratigy();
 
     /// <summary>
     /// Gets a list of actions up to the point in the hand that were trying to get
@@ -46,7 +48,7 @@ public class RangeCommand : SolverCommand
         }
         if (NodeString is null)
             throw new ArgumentNullException(nameof(NodeString), "NodeString is required to run a command");
-        return base.Execute(CommandRequest.ShowHumanReadableStratigy(), NodeString);
+        return base.Execute(SolverCommandRequest, NodeString);
     }
 
     private string BuildNodeString()

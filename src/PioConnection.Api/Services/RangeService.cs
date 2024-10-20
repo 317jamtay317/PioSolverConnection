@@ -17,7 +17,6 @@ public class RangeService(
     public string[] GetRange(FlopRangeRequest request)
     {
         var solverPath = configuration.GetValue<string>("piosolver-path");
-        var files = new FileInfo(solverPath);
         if (string.IsNullOrWhiteSpace(solverPath))
         {
             throw new ArgumentNullException(nameof(solverPath), "Path is required to start the solver, please ensure that a setting called 'piosolver-path' is in appsettings");

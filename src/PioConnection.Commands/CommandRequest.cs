@@ -22,6 +22,7 @@ public struct CommandRequest
 
     public static CommandRequest ShowNode() => new(SolverCommands.ShowNode);
     public static CommandRequest ShowHumanReadableStratigy() => new(SolverCommands.ShowHumanReadableStratigy);
+    public static CommandRequest BetSizing() => new(SolverCommands.BetSizing);
     internal CommandRequest(string requestName)
     {
         RequestName = requestName;

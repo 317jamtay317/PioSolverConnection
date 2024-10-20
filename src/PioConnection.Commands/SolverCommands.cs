@@ -31,4 +31,6 @@ internal class SolverCommands
     /// 
     /// </summary>
     internal const string ShowNode = "show_node";
+
+    internal const string BetSizing = "show_children";
 }

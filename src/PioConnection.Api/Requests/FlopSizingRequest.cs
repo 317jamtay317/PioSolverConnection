@@ -7,11 +7,6 @@ public class FlopSizingRequest : SolverRequest
 {
     /// <inheritdoc cref="SolverRequest.Street"/>
     public override Street Street => Street.Flop;
-
-    /// <summary>
-    /// Gets or sets the flop cards
-    /// </summary>
-    public Flop? Flop { get; set; }
     
     /// <summary>
     /// Gets or sets the list of <see cref="PlayerAction"/> by the OOP player

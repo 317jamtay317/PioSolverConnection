@@ -5,6 +5,18 @@ namespace PioConnection.Dtos.Tests.Unit;
 public class PlayerActionTests
 {
     [Fact]
+    public void FromString_ShouldConvertNodeToAction_WithSingleAction()
+    {
+        //arrange
+        var node = "r:0:b25";
+        var splitNode = node.Split(":");
+        PlayerAction expectedAction = PlayerAction.Bet(25);
+        //act
+        PlayerAction action = splitNode;
+        //assert
+        action.Equals(expectedAction).Should().BeTrue();
+    }
+    [Fact]
     public void Equals_ShouldBeTrue_WhenSameAction()
     {
         //arrange

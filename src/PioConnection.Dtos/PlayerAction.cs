@@ -7,6 +7,32 @@ namespace PioConnection.Dtos;
 /// </summary>
 public class PlayerAction : IEquatable<PlayerAction>
 {
+    public static implicit operator PlayerAction(string[] node)
+    {
+        bool hasTurnCard =false;
+        bool hasRiverCard=false;
+        bool isReaction =false;
+
+        var actionsWithOutRoot = node
+            .Where(x=>!x.StartsWith("r"))
+            .Where(x=>x != "0")
+            .ToArray();
+        var lastAction = actionsWithOutRoot.Last();
+        isReaction = actionsWithOutRoot.Length > 1;
+        if (lastAction.StartsWith("b"))
+        {
+            var stringSize = lastAction.Substring(1);
+            var size = float.Parse(stringSize);
+            return isReaction? Raise(size): Bet(size);
+        }
+
+        if (lastAction.StartsWith("c"))
+        {
+            return isReaction? Call(): Check();
+        }
+
+        throw new NotSupportedException($"The last node:{lastAction} is not able to be converted to a player action");
+    }
     public static bool operator ==(PlayerAction left, PlayerAction right)
     {
         return left?.Equals(right) ?? right is null;
@@ -27,12 +53,12 @@ public class PlayerAction : IEquatable<PlayerAction>
     /// <summary>
     /// Creates a bet action
     /// </summary>
-    public static PlayerAction Bet(int size) => new PlayerAction() { ActionType = ActionType.Bet, Size = size};
+    public static PlayerAction Bet(float size) => new PlayerAction() { ActionType = ActionType.Bet, Size = size};
     
     /// <summary>
     /// creates a raise action
     /// </summary>
-    public static PlayerAction Raise(int size) => new PlayerAction() { ActionType = ActionType.Raise, Size = size};
+    public static PlayerAction Raise(float size) => new PlayerAction() { ActionType = ActionType.Raise, Size = size};
     /// <summary>
     /// The action that the played made
     /// </summary>
@@ -45,7 +71,7 @@ public class PlayerAction : IEquatable<PlayerAction>
     /// This can be null, if this is null and the <see cref="ActionType"/> is bet or raise we will
     /// throw an exception.
     /// </remarks>
-    public int? Size { get; set; }
+    public float? Size { get; set; }
 
     public override string ToString()
     {

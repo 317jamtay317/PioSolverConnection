@@ -84,6 +84,7 @@ builder.Services.AddTransient(typeof(ILoggerWrapper<>), typeof(LoggerWrapper<>))
 builder.Services.AddScoped<IRangeService, RangeService>();
 builder.Services.AddSingleton<ISolverConnectionFactory, SolverConnectionFactory>();
 builder.Services.AddSingleton<ISolverFileService, SolverFileService>();
+builder.Services.AddSingleton<IBetSizingService, BetSizingService>();
 var app = builder.Build();
 logger.Information("Hello this is working");
 // Map controllers
